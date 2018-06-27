@@ -1,0 +1,10 @@
+Flask
+Flask-SQLAlchemy===2.1
+flask_login
+flask_bcrypt
+flask_wtf
+Flask-Migrate==1.8.0
+Flask-Script
+flask-cors
+psycopg2==2.6.1
+pyview
