@@ -1,9 +1,10 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from app import bcrypt, db
+db = SQLAlchemy()
 
 class TimestampMixin(object):
     created = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

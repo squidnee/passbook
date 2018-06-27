@@ -1,10 +1,10 @@
-from app import app, db
+from flask import current_app as app
 
 from flask import render_template, redirect, url_for
 from flask_login import login_required, login_user, logout_user, LoginManager
 
-from .forms import MasterPasswordForm, SignUpForm
-from .models import User
+from forms import MasterPasswordForm, SignUpForm
+from models import User
 
 ## TODO : Forgot Password implementation --> https://exploreflask.com/en/latest/users.html
 

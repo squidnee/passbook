@@ -6,6 +6,9 @@ class Config(object):
 	TESTING = False
 	MAIL_FROM_EMAIL = "sydney@example.com"
 	BCRYPT_LOG_ROUNDS = 12
+	DEFAULT_URL = "127.0.0.1"
+	PORT = 5000
+	SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class DevelopmentConfig(Config):
 	DEVELOPMENT = True

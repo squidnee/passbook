@@ -6,5 +6,8 @@ flask_wtf
 Flask-Migrate==1.8.0
 Flask-Script
 flask-cors
-psycopg2==2.6.1
-pyview
+flask_restful
+psycopg2
+pyqt5
+Jinja2
+itsdangerous

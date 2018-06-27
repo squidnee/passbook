@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from app import app
+from app import create_app
+from app.webui import WebUI
 
 if __name__ == '__main__':
-	app.run(debug=True)
+	app = create_app()
+	ui = WebUI(app, debug=True)
+	ui.run()

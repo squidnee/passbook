@@ -1,27 +1,19 @@
-import os
-from flask import Flask, render_template
-from flask_sqlalchemy import SQLAlchemy
-#from flask_login import LoginManager
-from flask_bcrypt import Bcrypt
-from flask_cors import CORS
-#from flask_cache import Cache
+from flask import Flask, render_template#, url_for, request, make_response
+from .extensions import db
+from .endpoints import register_endpoints
+from .config import Config
 
 app = Flask(__name__, instance_relative_config=True)
-app.config.from_object('config')
-app.config.from_pyfile('config.py')
-print(app.config)
-#app.config.from_envvar('APP_CONFIG_FILE')
 
-CORS(app)
-bcrypt = Bcrypt(app)
-db = SQLAlchemy(app)
+def create_app(config=Config):
+	app.config.from_object(config)
+	app.config.from_pyfile('config.py')
+	print(app.config)
+	register_extensions()
+	return app
 
-#login_manager = LoginManager()
-#login_manager.init_app(app)
-#login_manager.login_view =  "signin"
-
-from app import views, models
-#db.create_all()
+def register_extensions():
+	db.init_app(app)
 
 @app.errorhandler(404)
 def not_found(error):
@@ -30,3 +22,8 @@ def not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     return render_template('./errors/500.html'), 500
+
+@app.route('/')
+#@login_required
+def index():
+    return render_template("index.html")
