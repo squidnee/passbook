@@ -1,3 +1,2 @@
-export FLASK_APP=passbook/app.py
-#flask run
-python3 run.py
+export FLASK_APP=run.py
+flask run

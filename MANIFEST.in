@@ -1,4 +1,2 @@
-recursive-include app/templates *
-recursive-include app/static *
-recursive-include app/views *
-recursive-include app/util *
+recursive-include passbook/templates *
+recursive-include passbook/static *

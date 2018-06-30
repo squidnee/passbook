@@ -3,12 +3,19 @@ from flask_login import login_required, login_user, logout_user, current_user
 from flask import current_app as app
 
 #from passbook.auth import login_manager
-from passbook.db import get_db
-
+from passbook.extensions import db
 from passbook.forms.auth import LoginForm, SignUpForm
 from passbook.models.users import User
+from passbook.api.handlers.users import UserHandler
 
 from werkzeug.urls import url_parse
+from datetime import datetime
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_accessed = datetime.utcnow()
+        db.session.commit()
 
 ## TODO : Make this route available over secure HTTP
 @app.route('/login', methods=['GET', 'POST'])
@@ -23,7 +30,6 @@ def login():
             return redirect(url_for('login'))
         login_user(user)
         next_page = request.args.get('next')
-        print(next_page)
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('index')
         return redirect(next_page)
@@ -42,8 +48,8 @@ def signup():
         return redirect(url_for('index'))
     form = SignUpForm()
     if form.validate_on_submit():
-        user = User(username=form.username.data, email=form.email.data)
-        db = get_db()
+        password = form.password.data
+        user = User(username=form.username.data, email=form.email.data, password=password)
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')

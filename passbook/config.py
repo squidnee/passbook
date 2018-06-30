@@ -4,7 +4,6 @@ The configuration file. Controls the default application settings.
 """
 
 import os
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 class BaseConfig(object):
 	# General options
@@ -39,6 +38,11 @@ class BaseConfig(object):
 
 	# Cache options
 	ENTRY_CACHE_SIZE = 5
+
+	# Compression options
+	COMPRESS_MIMETYPES = ['text/html', 'text/css', 'text/xml', 'application/json', 'application/javascript']
+	COMPRESS_LEVEL = 6
+	COMPRESS_MIN_SIZE = 500
 
 class DevelopmentConfig(BaseConfig):
 	DEVELOPMENT = True

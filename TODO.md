@@ -17,7 +17,10 @@
 
 # Models
 - [ ] Remove password from User model, replace with password hash
-- [ ] Update database relationships
+- [ ] Update User database relationships
+- [ ] Add a model for user preferences
+- [ ] Finish Record model
+- [ ] Finish Device model
 
 # API
 - [x] Make a basic user manager template
@@ -35,6 +38,10 @@
 - [ ] Fill out the layout template
 - [ ] Fill out the error templates
 - [ ] Fill out the form template
+- [ ] Put the navigation bar on the bottom of the page
+- [ ] Create a settings page and add it to the navigation bar
+- [ ] Create an about page and add it to the navigation bar
+- [ ] Create and add a sidebar for viewing the entries
 
 # Static
 - [ ] Fill out CSS
@@ -51,8 +58,8 @@
 - [ ] Implement migration in initialization of app
 
 # CLI
-- [ ] Load database with flask shell
-- [ ] Load user model with flask shell
+- [x] Load database with flask shell
+- [x] Load user model with flask shell
 
 # Configuration
 - [x] Order the configuration options by groups

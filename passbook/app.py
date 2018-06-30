@@ -8,8 +8,8 @@ import os
 
 from flask import Flask
 from flask_migrate import Migrate
-from .extensions import db, mail, csrf, compress, toolbar, boot, nav#, api
-from .config import BaseConfig as Config
+from passbook.extensions import db, mail, csrf, compress, toolbar, boot, nav#, api
+from passbook.config import BaseConfig as Config
 
 #BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -17,16 +17,17 @@ def create_app(config=Config):
 	app = Flask(__name__, instance_relative_config=True)
 	app.config.from_object(config)
 	app.config.from_pyfile('config.py')
+	print(app.config)
 	with app.app_context():
 		register_pre_extensions(app)
-		build_database()
+		build_database(app)
 		register_endpoints()
 		#register_post_extensions(app)
 	return app
 
 def register_pre_extensions(app):
 	db.init_app(app)
-	Migrate(app, db)
+	#Migrate(app, db)
 	boot.init_app(app)
 	nav.init_app(app)
 	mail.init_app(app)
@@ -34,10 +35,10 @@ def register_pre_extensions(app):
 	csrf.init_app(app)
 	toolbar.init_app(app)
 
-def build_database():
+def build_database(app):
 	from passbook.models.records import Record
 	from passbook.models.users import User
-	db.create_all()
+	db.create_all(app=app)
 
 def register_post_extensions(app):
 	#api.init_app(app)
