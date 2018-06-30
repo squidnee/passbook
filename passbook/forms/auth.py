@@ -11,9 +11,14 @@ from wtforms.validators import DataRequired, Email, ValidationError, EqualTo
 
 # TODO: CSRF protection --> http://flask.pocoo.org/snippets/3/
 
-class RecoverPasswordForm(FlaskForm):
+class ResetPasswordForm(FlaskForm):
+	password = PasswordField('Password', validators=[DataRequired()])
+	repeat_password = PasswordField('Repeat Password', alidators=[DataRequired(), EqualTo('password')])
+	submit = SubmitField('Reset Password')
+
+class ResetPasswordRequestForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
-    submit = SubmitField('Submit')
+    submit = SubmitField('Request Password Reset')
 
 class LoginForm(FlaskForm):
 	username = StringField('Username', validators=[DataRequired()])

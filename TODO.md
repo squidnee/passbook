@@ -1,9 +1,10 @@
 # Routes
 - [x] Have login page display the login form
 - [x] Have login page route to the sign up form
-- [ ] Have logout page redirect to the login page
+- [ ] Have logout route redirect to the login page
 - [x] Redirect to the login page if not logged in, otherwise redirect to the index page
 - [ ] Have login page display over secure HTTP
+- [x] Route to reset password form on login page
 
 # Views
 
@@ -52,7 +53,9 @@
 - [ ] Add template filters
 
 # Mail
+- [ ] Make throwaway email account to test email functionality
 - [ ] Set up async tasking with Celery
+- [x] Set up password reset functionality
 
 # Database
 - [x] Implement migration in initialization of app
@@ -65,11 +68,14 @@
 - [x] Order the configuration options by groups
 - [ ] Ensure the instance folder exists
 - [ ] If not testing, don't load instance config
+- [ ] Set up MAIL_FROM_EMAIL to fit throwaway email address used for testing
 
 # Testing / Logging
 - [ ] Get Flask debug toolbar working
 - [ ] Set up Redis caching
 - [ ] Log invites, user actions, etc.
+- [ ] Add log file for non-debug mode
+- [ ] Set up email error catching for non-debug mode
 
 # Future Features
 - Import / export / backup info
@@ -79,3 +85,4 @@
 - Functionality for detecting / removing expired credit cards
 - Pyperclip (for copying)
 - Equiv. domains for websites on entries
+- Sync with external apps (social media, phone, etc.)

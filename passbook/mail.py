@@ -4,17 +4,26 @@ For asynchronous emailing from within the application.
 """
 
 from threading import Thread
+from flask import current_app as app
+from flask import render_template
+from flask_mail import Message
+from passbook.extensions import mail
+
+mail.init_app(app)
 
 def send_async_email(app, msg):
 	with app.app_context():
 		mail.send(msg)
 
-def send_email(to, subject, template, **kwargs):
-	pass
-#msg = Message(app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + subject,
-#sender=app.config['FLASKY_MAIL_SENDER'], recipients=[to])
-#msg.body = render_template(template + '.txt', **kwargs)
-#msg.html = render_template(template + '.html', **kwargs)
-#thr = Thread(target=send_async_email, args=[app, msg])
-#thr.start()
-#return thr
+def send_email(title, sender, recipients, text, html):
+	msg = Message(title, sender=sender, recipients=recipients)
+	msg.body = text
+	msg.html = html
+	Thread(target=send_async_email, args=(app, msg)).start()
+
+def send_password_reset_email(user):
+	token = user.get_reset_password_token()
+	send_email('[Password Manager] Reset Your Password', sender=app.config['MAIL_FROM_EMAIL'], recipients=[user.email],
+				text=render_template('mail/reset_password.txt', user=user, token=token),
+				html=render_template('mail/reset_password.html', user=user, token=token)
+				)
