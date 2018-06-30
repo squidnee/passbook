@@ -9,6 +9,4 @@ alembic/
 
 instance/
 
-migrations/
-
 venv/

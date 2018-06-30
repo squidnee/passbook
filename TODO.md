@@ -16,9 +16,10 @@
 - [ ] Get the forms to work with BaseForm
 
 # Models
-- [ ] Remove password from User model, replace with password hash
+- [x] Remove password from User model, replace with password hash
 - [ ] Update User database relationships
 - [ ] Add a model for user preferences
+- [ ] Add description and notes max length from config to Record model
 - [ ] Finish Record model
 - [ ] Finish Device model
 
@@ -54,8 +55,7 @@
 - [ ] Set up async tasking with Celery
 
 # Database
-- [ ] Update database schema
-- [ ] Implement migration in initialization of app
+- [x] Implement migration in initialization of app
 
 # CLI
 - [x] Load database with flask shell

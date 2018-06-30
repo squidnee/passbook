@@ -19,7 +19,7 @@ class Record(TimestampMixin, db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(128), unique=True, nullable=False)
 	owner = db.Column(db.String(32), nullable=False) #TODO
-	category = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
+	category = db.Column(db.Integer, nullable=False)
 	website = db.Column(db.String(128), index=True, nullable=False)
 	username = db.Column(db.String(64), index=True, unique=False)
 	password = db.Column(db.String(128))

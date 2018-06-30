@@ -27,7 +27,7 @@ def create_app(config=Config):
 
 def register_pre_extensions(app):
 	db.init_app(app)
-	#Migrate(app, db)
+	migrate = Migrate(app, db)
 	boot.init_app(app)
 	nav.init_app(app)
 	mail.init_app(app)
