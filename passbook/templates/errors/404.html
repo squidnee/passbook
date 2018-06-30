@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>HTTP 404</title>
-  </head>
+{% extends 'base.html' %}
 
-  <body>
-    <h1>Page Not Found :PPPP</h1>
-  </body>
-</html>
+{% block app_content %}
+    <h1>File Not Found</h1>
+    <p><a href="{{ url_for('index') }}">Back</a></p>
+{% endblock %}

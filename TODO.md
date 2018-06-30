@@ -33,12 +33,12 @@
 - [ ] Set up SSL
 
 # Templates
-- [ ] Fill out the login template
-- [ ] Fill out the signup template
+- [x] Fill out the login template
+- [x] Fill out the signup template
 - [x] Fill out navigation bar
 - [ ] Fill out the header and footer templates
 - [ ] Fill out the layout template
-- [ ] Fill out the error templates
+- [x] Fill out the error templates
 - [ ] Fill out the form template
 - [ ] Put the navigation bar on the bottom of the page
 - [ ] Create a settings page and add it to the navigation bar
