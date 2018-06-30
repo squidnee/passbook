@@ -1,13 +1,13 @@
 Flask
-Flask-SQLAlchemy===2.1
+Flask-SQLAlchemy
 Flask-Login
 flask_wtf
-Flask-Migrate==1.8.0
-Flask-Script
+Flask-Migrate
 Flask-Mail
 flask-compress
 flask-bootstrap
 flask-nav
+flask-debugtoolbar
 pyqt5
 Jinja2
 itsdangerous

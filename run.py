@@ -15,4 +15,3 @@ if __name__ == '__main__':
 	app.run()
 	#ui = WebUI(app, debug=True)
 	#ui.run()
-	#init_gui(app)

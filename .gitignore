@@ -1,22 +1,14 @@
 
 *.ini
 
-alembic/env.py
+alembic/
 
 *.pyc
 
-alembic/README
-
-alembic/script.py.mako
-
 *.db
 
-instance/config.py
+instance/
 
-migrations/env.py
+migrations/
 
-migrations/README
-
-migrations/script.py.mako
-
-migrations/versions/7c9b690c3f78_.py
+venv/

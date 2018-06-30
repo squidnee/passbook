@@ -13,7 +13,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 from flask_nav.elements import Navbar, View
-from flask_restful import Api
+#from flask_restful import Api
 
 from celery import Celery
 
@@ -31,6 +31,6 @@ topbar = Navbar('',
     View('Register', 'auth.signup')
 )
 nav.register_element('top', topbar)
-api = Api()
+#api = Api()
 
 celery = Celery()

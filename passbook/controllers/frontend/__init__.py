@@ -1,19 +1,22 @@
 from flask import current_app as app
-from flask import render_template
+from flask import render_template, redirect, url_for
 
-from flask_login import current_user
+from flask_login import current_user, login_required
 
-from passbook.controllers.frontend import admin
 from passbook.controllers.frontend import errors
 from passbook.controllers.frontend import navigation
 from passbook.controllers.frontend import login
 
 from passbook.models.users import User
 
+from passbook.auth import login_manager
+
+# Redirects to the login form if user is not logged in
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'login'
+
 @app.route('/')
+@app.route('/index')
+@login_required
 def index():
-	if not current_user.is_authenticated:
-		text = "Need to log in"
-	else:
-		text = "Ok you're good to go"
-	return render_template('index.html', text=text)
+	return render_template('index.html')

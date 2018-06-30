@@ -7,14 +7,11 @@ to support asynchronous tasking.
 import os
 
 from flask import Flask
-from .extensions import db, mail, csrf, compress, toolbar, boot, nav, api
+from flask_migrate import Migrate
+from .extensions import db, mail, csrf, compress, toolbar, boot, nav#, api
 from .config import BaseConfig as Config
 
 #BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-
-# Redirects to the login form if user is not logged in
-#login_manager.session_protection = 'strong'
-#login_manager.login_view = 'auth.login'
 
 def create_app(config=Config):
 	app = Flask(__name__, instance_relative_config=True)
@@ -24,11 +21,12 @@ def create_app(config=Config):
 		register_pre_extensions(app)
 		build_database()
 		register_endpoints()
-		register_post_extensions(app)
+		#register_post_extensions(app)
 	return app
 
 def register_pre_extensions(app):
 	db.init_app(app)
+	Migrate(app, db)
 	boot.init_app(app)
 	nav.init_app(app)
 	mail.init_app(app)
@@ -42,7 +40,8 @@ def build_database():
 	db.create_all()
 
 def register_post_extensions(app):
-	api.init_app(app)
+	#api.init_app(app)
+	pass
 
 def register_endpoints():
 	## TODO : Set up assets with Flask-Assets

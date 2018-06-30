@@ -7,25 +7,38 @@ import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class BaseConfig(object):
+	# General options
 	DEBUG = True
 	TESTING = False
-	RELOADER = True
-	MAIL_FROM_EMAIL = "sydney@example.com"
-	BCRYPT_LOG_ROUNDS = 12
-	CSRF_ENABLED = True
-	WTF_CSRF_ENABLED = True
 	DEFAULT_URL = "127.0.0.1"
 	PORT = 5000
+	PYTHON_VERSION = "3.6.0"
+	DEBUG_TB_INTERCEPT_REDIRECTS = False
+
+	# Security options
+	BCRYPT_LOG_ROUNDS = 12
+	SALT_LENGTH = 32
+	SESSION_TIMEOUT_MINUTES = 30
+	CSRF_ENABLED = True
+
+	# Database options
 	SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+	# Limits
 	MAX_PASSWORD_LENGTH = 160
 	MIN_PASSWORD_LENGTH = 6
 	MAX_DESCRIPTION_LENGTH = 200
 	MAX_NOTE_LENGTH = 500
-	SESSION_TIMEOUT_MINUTES = 30
-	SALT_LENGTH = 32
 	MAX_FAMILY_SIZE = 6
+
+	# Form options
+	WTF_CSRF_ENABLED = True
+
+	# Mail options
+	MAIL_FROM_EMAIL = "sydney@example.com"
+
+	# Cache options
 	ENTRY_CACHE_SIZE = 5
-	ENVIRONMENT = property(lambda self: self.__class__.__name__)
 
 class DevelopmentConfig(BaseConfig):
 	DEVELOPMENT = True

@@ -1,9 +1,8 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 
 # TODO: CSRF protection --> http://flask.pocoo.org/snippets/3/
-# TODO: Move this to core.py?
 
-class BaseForm(Form):
+class BaseForm(FlaskForm):
     def __iter__(self):
         token = self.csrf_token
         yield token

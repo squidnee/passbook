@@ -1,8 +1,7 @@
 {% extends "bootstrap/base.html" %}
 
 {% block title %}
-  {# Default title - replace the whole title or just the page title #}
-  RyanGround | {% block title_page %}Home{% endblock %}
+  Password Manager | {% block title_page %}Home{% endblock %}
 {% endblock %}
 
 {% block head %}
@@ -15,7 +14,7 @@
   {{super()}}
   {# Default styles for all pages #}
   <link rel="stylesheet" type="text/css"
-        href="{{url_for('static', filename='passbook/static/css/style.css')}}">
+        href="{{url_for('static', filename='css/style.css')}}">
 {% endblock %}
 
 {% block navbar %}
@@ -25,8 +24,7 @@
 {% block content %}
   <div id="content">
     {% block container %}
-      {# Default template with simple text #}
-      <p>{{text|safe}}</p>
+    <h1>Hi, {{ current_user.username }}!</h1>
     {% endblock %}
   </div>
 {% endblock %}
