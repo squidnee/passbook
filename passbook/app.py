@@ -31,6 +31,7 @@ def create_app(config=Config):
 		add_csrf(app)
 		#compress.init_app(app)
 		register_endpoints()
+		create_logger(app)
 		#register_post_extensions(app)
 	return app
 
@@ -81,3 +82,11 @@ def create_celery_app(app):
 				return TaskBase.__call__(self, *args, **kwargs)
 	celery.Task = ContextTask
 	return celery
+
+def create_logger(app):
+	if not app.config['DEBUG']:
+		from passbook.features.logging import return_file_logger
+		file_handler = return_file_logger()
+		app.logger.addHandler(file_handler)
+		app.logger.setLevel(logging.INFO)
+		app.logger.info('Password Manager logging')

@@ -1,18 +1,25 @@
 from flask import Blueprint, render_template
+from flask import current_app as app
 
-from passbook.models.records import SiteRecord, WalletRecord, EncryptedFileRecord
-from passbook.forms.records import NewSiteRecordForm, NewWalletRecordForm, FileUploadForm
+from passbook.features.extensions import db
+from passbook.models.records import SiteRecord, WalletRecord
+from passbook.forms.records import NewSiteRecordForm, NewWalletRecordForm, RecordSearchForm
 
-records = Blueprint('records', __name__, url_prefix='/records')
+records_bp = Blueprint('records', __name__, url_prefix='/records')
+app.register_blueprint(records_bp)
 
-@records.route('/all/', methods=['GET'])
+@records_bp.route('/all/', methods=['GET'])
 def list_all_records():
 	pass
 
-@records.route('/add/', methods=['GET', 'POST'])
+@records_bp.route('/add/', methods=['GET', 'POST'])
 def add_record():
 	pass
 
-@records.route('/<int:id>/', methods=['GET','POST'])
+@records_bp.route('/<int:id>/', methods=['GET','POST'])
 def edit_record(id):
+	pass
+
+@records_bp.route('/results')
+def search_results(search):
 	pass

@@ -11,8 +11,8 @@ class Category(db.Model):
 
 	__tablename__ = 'categories'
 
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(128), nullable=False)
+	category_id = db.Column(db.Integer, primary_key=True)
+	category_name = db.Column(db.String(128), nullable=False)
 
 	def __repr__(self):
 		return '<Category %r>' % self.name
@@ -47,6 +47,18 @@ class SiteRecord(TimestampMixin, db.Model):
 		self.description = description
 		self.notes = notes
 
+	def _get_name(self):
+		return self.name
+	def _get_website(self):
+		return self.website
+	def _get_username(self):
+		return self.username
+	def _get_email(self):
+		return self.email
+	def _get_description(self):
+		return self.description
+	def _get_notes(self):
+		return self.notes
 	def set_password(self, password):
 		self.password_hash = generate_password_hash(password)
 	def check_password(self, password):
@@ -129,3 +141,12 @@ class EncryptedFileRecord(TimestampMixin, db.Model): #TODO: Finish
 class DecryptedFile: #TODO: Finish
 	def __init__(self, name):
 		self.name = name
+
+class NoteRecord(TimestampMixin, db.Model):
+
+	__tablename__ = 'notes'
+
+	note_id = db.Column(db.Integer, primary_key=True)
+	note_name = db.Column(db.String(128))
+	files = db.Column(db.LargeBinary)
+	starred = db.Column(db.Boolean, default=False)

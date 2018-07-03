@@ -7,6 +7,8 @@ from passbook.controllers.frontend import errors
 from passbook.controllers.frontend import navigation
 from passbook.controllers.frontend import login
 from passbook.controllers.frontend import settings
+from passbook.controllers.frontend import records
+from passbook.controllers.frontend import uploads
 
 from passbook.models.users import User
 

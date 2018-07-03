@@ -38,6 +38,11 @@
 - [ ] Make a model for encrypted documents
 - [ ] After making password generation utility, add it to user model
 - [ ] Finish the encrypted file model
+- [ ] Add notes model
+- [ ] Add ability to share records/notes
+- [ ] Add a Vault model
+- [ ] Add a Folder model
+- [ ] Add a Tag model
 
 # Managers
 - [x] Make a basic user manager template
