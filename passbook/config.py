@@ -47,6 +47,10 @@ class BaseConfig(object):
 	# Organization options
 	COLORS = ["RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE", "PINK"]
 
+	# File options
+	UPLOAD_FOLDER = '../instance/uploads'
+	MAX_CONTENT_LENGTH = 16 * 1024 * 1024
+
 	# Filter options
 
 class DevelopmentConfig(BaseConfig):

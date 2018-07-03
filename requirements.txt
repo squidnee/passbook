@@ -10,6 +10,8 @@ flask-nav
 flask-debugtoolbar
 flask-admin
 flask-httpauth
+flask-sslify
+flask-cors
 pyqt5
 Jinja2
 itsdangerous

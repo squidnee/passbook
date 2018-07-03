@@ -6,6 +6,7 @@
 - [ ] Have login page display over secure HTTP
 - [x] Route to reset password form on login page
 - [x] Redirect to settings page with a dropdown menu via navigation bar
+- [ ] Ensure that settings/user prefs only works if logged in
 
 # Views
 - [ ] Get sidebar to show up on all pages
@@ -14,6 +15,8 @@
 - [x] Add settings page (advanced)
 - [x] Add user preferences page
 - [ ] Add an about page to the navigation bar
+- [ ] Finish uploads views/controller
+- [ ] Create a basic help page and add it to the navigation bar
 
 # Forms
 - [ ] Implement CSRF protection in all forms
@@ -27,16 +30,18 @@
 - [x] Remove password from User model, replace with password hash
 - [ ] Update User database relationships
 - [ ] Add getters and setters to User model
-- [ ] Add a model for user preferences
+- [x] Add a model for user preferences
 - [ ] Add description and notes max length from config to Record model
-- [ ] Finish Record model
+- [ ] Finish SiteRecord model
+- [ ] Finish WalletRecord model
 - [ ] Finish Device model
 - [ ] Make a model for encrypted documents
 - [ ] After making password generation utility, add it to user model
+- [ ] Finish the encrypted file model
 
-# API
-- [x] Make a basic user handler template
-- [ ] Make a basic record handler template
+# Managers
+- [x] Make a basic user manager template
+- [ ] Make a basic record manager template
 
 # Security
 - [ ] Implement Argon for salting
@@ -44,6 +49,7 @@
 - [ ] Add middleware
 - [ ] Add a security question
 - [ ] Enable encryption and decryption of documents
+- [ ] Add IP whitelisting?
 
 # Templates
 - [x] Fill out the login template
@@ -57,6 +63,7 @@
 - [ ] Fill out the advanced settings template
 - [ ] Fill out the user preferences template
 - [ ] Fill out the about page template
+- [ ] Fill out the help page template
 
 # Static
 - [ ] Fill out CSS
@@ -89,12 +96,28 @@
 - [ ] If not testing, don't load instance config
 - [ ] Set up MAIL_FROM_EMAIL to fit throwaway email address used for testing
 
+# File Structure
+- [ ] Add proper CLI folder
+- [x] Move extensions to a features folder
+- [ ] Add logging functionality to a features folder
+- [ ] Figure out where to add exceptions (and add them)!
+
 # Functionality
 - [ ] Add ability to star/favorite a record
+- [ ] Implement search functionality
+
+# Extensions
+- [ ] Consider using Flask-Uploads
+- [ ] Consider using Flask-User
+- [ ] Consider using Flask-Security
+- [ ] Implement Flask-Assets
+- [ ] Implement Flask-CORS
+- [ ] Implement Flask-SSLify
 
 # Testing / Logging
 - [x] Get Flask debug toolbar working
 - [ ] Set up Redis caching
+- [ ] Add signals script
 - [ ] Log invites, user actions, etc.
 - [ ] Add log file for non-debug mode
 - [ ] Set up email error catching for non-debug mode
@@ -115,8 +138,10 @@
 - Sync with external apps (social media, phone, etc.)
 - Internationalization with Babel
 - Mobile support
+- Trusted devices
 - Secure notes
 - Encrypted documents
 - Autofill and autosave functionality
 - Custom fields
 - Support for multiple password managers
+- Password alerts in settings

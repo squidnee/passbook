@@ -2,12 +2,11 @@ from flask import Flask, render_template, redirect, url_for, flash, request#, se
 from flask_login import login_required, login_user, logout_user, current_user
 from flask import current_app as app
 
-#from passbook.auth import login_manager
-from passbook.extensions import db
+from passbook.features.extensions import db
 from passbook.forms.auth import LoginForm, SignUpForm, ResetPasswordForm, ResetPasswordRequestForm
 from passbook.models.users import User
-from passbook.api.handlers.users import UserHandler
-from passbook.mail import send_password_reset_email
+from passbook.managers.users import UserManager
+from passbook.features.mail import send_password_reset_email
 
 from werkzeug.urls import url_parse
 from datetime import datetime
@@ -37,7 +36,7 @@ def login():
     return render_template("auth/login.html", title='Sign In', form=form)
 
 @app.route('/logout')
-@login_required
+#@login_required
 def logout():
     logout_user()
     flash('User was logged out.')

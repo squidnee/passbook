@@ -9,7 +9,7 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 
-from passbook.extensions import db
+from passbook.features.extensions import db
 from passbook.util.fakes import make_fake_users
 
 def init_app(app):

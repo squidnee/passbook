@@ -1,4 +1,4 @@
-from passbook.extensions import nav
+from passbook.features.extensions import nav
 from flask_nav.elements import *
 
 @nav.navigation()

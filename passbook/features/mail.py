@@ -7,7 +7,7 @@ from threading import Thread
 from flask import current_app as app
 from flask import render_template
 from flask_mail import Message
-from passbook.extensions import mail
+from passbook.features.extensions import mail
 
 mail.init_app(app)
 

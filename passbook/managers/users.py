@@ -1,7 +1,8 @@
-from passbook.extensions import db
+from passbook.features.extensions import db
 from passbook.models.users import User
+#from passbook.forms.settings import UserPreferences
 
-class UserHandler:
+class UserManager:
 
 	@staticmethod
 	def get_user(email):
@@ -31,4 +32,16 @@ class UserHandler:
 
 	@staticmethod
 	def delete_user():
+		pass
+
+	@staticmethod
+	def get_role():
+		pass
+
+	@staticmethod
+	def get_trusted_users():
+		pass
+
+	@staticmethod
+	def get_trusted_by():
 		pass

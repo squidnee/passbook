@@ -5,16 +5,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask import current_app as app
 from flask_sqlalchemy import SQLAlchemy
-from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
+#from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 #from sqlalchemy.ext.hybrid import hybrid_property
 from flask_login import UserMixin
 
-#from passbook.app import db
-#from passbook.auth import login_manager as login
-from . import TimestampMixin, db
+from passbook.features.extensions import db
+from . import TimestampMixin
 
-basic_auth = HTTPBasicAuth()
-token_auth = HTTPTokenAuth()
+#basic_auth = HTTPBasicAuth()
+#token_auth = HTTPTokenAuth()
 
 class Permissions:
 	GENERAL = 0x01
@@ -22,7 +21,7 @@ class Permissions:
 
 class User(UserMixin, TimestampMixin, db.Model):
 
-	#__tablename__ = 'users'
+	__tablename__ = 'users'
 
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	username = db.Column(db.String(32), unique=True, nullable=False)
@@ -57,8 +56,20 @@ class User(UserMixin, TimestampMixin, db.Model):
 	def __repr__(self):
 		return '<User {}>'.format(self.username)
 
-class UserPreferences:
-	pass
+class UserPreferences(db.Model):
+
+	__tablename__ = 'user_preferences'
+
+	id = db.Column(db.Integer, primary_key=True)
+	user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+	user = db.relationship('User', backref='user_preferences')
+	first_name = db.Column(db.String(64))
+	last_name = db.Column(db.String(64))
+	phone_number = db.Column(db.String(64))
+	password_hint = db.Column(db.String(128))
+
+	def __init__(self, user_id):
+		self.user_id = user_id
 
 #@login.user_loader
 #def load_user(id):

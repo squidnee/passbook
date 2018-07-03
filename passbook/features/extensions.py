@@ -12,10 +12,6 @@ from flask_wtf import CSRFProtect
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
-from flask_nav.elements import Navbar, View
-#from flask_restful import Api
-
-from celery import Celery
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -25,12 +21,3 @@ csrf = CSRFProtect()
 toolbar = DebugToolbarExtension()
 boot = Bootstrap()
 nav = Nav()
-topbar = Navbar('',
-    View('Home', 'main.index'),
-    View('Login', 'auth.login'),
-    View('Register', 'auth.signup')
-)
-nav.register_element('top', topbar)
-#api = Api()
-
-celery = Celery()

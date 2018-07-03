@@ -1,5 +1,8 @@
 from datetime import datetime
-from passbook.extensions import db
+from passbook.features.extensions import db
+
+CATEGORY_TYPES = set(['internet', 'money', 'identity', 'notes'])
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 class TimestampMixin(object):
     created_on = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
