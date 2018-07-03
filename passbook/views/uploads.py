@@ -5,7 +5,6 @@ from werkzeug.utils import secure_filename
 from passbook.models.records import EncryptedFileRecord
 
 uploads_bp = Blueprint('uploads', __name__, url_prefix='/uploads')
-app.register_blueprint(uploads_bp)
 
 # TODO: Finish
 # http://flask.pocoo.org/docs/1.0/patterns/fileuploads/

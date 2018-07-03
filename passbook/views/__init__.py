@@ -3,12 +3,12 @@ from flask import render_template, redirect, url_for
 
 from flask_login import current_user, login_required, LoginManager
 
-from passbook.controllers.frontend import errors
-from passbook.controllers.frontend import navigation
-from passbook.controllers.frontend import login
-from passbook.controllers.frontend import settings
-from passbook.controllers.frontend import records
-from passbook.controllers.frontend import uploads
+from passbook.views import errors
+from passbook.views import navigation
+from passbook.views import login
+from passbook.views import settings
+from passbook.views import records
+from passbook.views import uploads
 
 from passbook.models.users import User
 

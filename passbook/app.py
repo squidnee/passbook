@@ -30,7 +30,7 @@ def create_app(config=Config):
 		build_toolbar(app)
 		add_csrf(app)
 		#compress.init_app(app)
-		register_endpoints()
+		register_endpoints(app)
 		create_logger(app)
 		#register_post_extensions(app)
 	return app
@@ -66,10 +66,14 @@ def add_csrf(app):
 def register_post_extensions(app):
 	pass
 
-def register_endpoints():
+def register_endpoints(app):
 	## TODO : Set up assets with Flask-Assets
 	## TODO : Set up SSL
-	from passbook.controllers import frontend
+	from passbook.views import errors, login, navigation, records, settings, uploads
+	from passbook.views.records import records_bp
+	from passbook.views.uploads import uploads_bp
+	app.register_blueprint(records_bp, url_prefix='/records')
+	app.register_blueprint(uploads_bp, url_prefix='/uploads')
 
 def create_celery_app(app):
 	from passbook.features.tasks import celery
