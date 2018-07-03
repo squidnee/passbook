@@ -44,6 +44,11 @@ class BaseConfig(object):
 	COMPRESS_LEVEL = 6
 	COMPRESS_MIN_SIZE = 500
 
+	# Organization options
+	COLORS = ["RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE", "PINK"]
+
+	# Filter options
+
 class DevelopmentConfig(BaseConfig):
 	DEVELOPMENT = True
 

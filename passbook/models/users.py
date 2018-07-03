@@ -5,12 +5,16 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask import current_app as app
 from flask_sqlalchemy import SQLAlchemy
+from flask_httpauth import HTTPBasicAuth, HTTPTokenAuth
 #from sqlalchemy.ext.hybrid import hybrid_property
 from flask_login import UserMixin
 
 #from passbook.app import db
 #from passbook.auth import login_manager as login
 from . import TimestampMixin, db
+
+basic_auth = HTTPBasicAuth()
+token_auth = HTTPTokenAuth()
 
 class Permissions:
 	GENERAL = 0x01

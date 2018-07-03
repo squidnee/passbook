@@ -6,6 +6,7 @@ from flask_login import current_user, login_required
 from passbook.controllers.frontend import errors
 from passbook.controllers.frontend import navigation
 from passbook.controllers.frontend import login
+from passbook.controllers.frontend import settings
 
 from passbook.models.users import User
 

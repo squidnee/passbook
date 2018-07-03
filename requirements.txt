@@ -8,9 +8,12 @@ flask-compress
 flask-bootstrap
 flask-nav
 flask-debugtoolbar
+flask-admin
+flask-httpauth
 pyqt5
 Jinja2
 itsdangerous
 click
 celery
 pyjwt
+faker

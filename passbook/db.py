@@ -5,10 +5,12 @@ This script contains basic database operation commands.
 
 import sqlite3
 import click
+
 from flask import current_app, g
 from flask.cli import with_appcontext
 
 from passbook.extensions import db
+from passbook.util.fakes import make_fake_users
 
 def init_app(app):
 	app.teardown_appcontext(close_db)
@@ -30,8 +32,20 @@ def close_db(e=None):
 	if db:
 		db.close()
 
-@click.command('init-db')
+def build_sample_db():
+	make_fake_users()
+
+@click.command('init')
 @with_appcontext
 def init_db_command():
 	init_db()
 	click.echo("Initialized the database.")
+
+@click.command('fake users')
+@with_appcontext
+def make_fake_users():
+	build_sample_db()
+	click.echo("Added fake users to the database.")
+
+click.add_command(init_db_command)
+click.add_command(make_fake_users)

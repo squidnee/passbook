@@ -1,3 +1,4 @@
+from passbook.extensions import db
 from passbook.models.users import User
 
 class UserHandler:
@@ -12,7 +13,17 @@ class UserHandler:
 
 	@staticmethod
 	def create_user(username, email, password):
-		pass
+		if User.query.filter_by(email=email).first():
+			return False
+
+		elif User.query.filter_by(username=username).first():
+			return False
+
+		else:
+			user = User(username=username, email=email, password=password)
+			db.session.add(user)
+			db.session.commit()
+			return True
 
 	@staticmethod
 	def edit_user():

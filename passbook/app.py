@@ -41,7 +41,6 @@ def build_database(app):
 	db.create_all(app=app)
 
 def register_post_extensions(app):
-	#api.init_app(app)
 	pass
 
 def register_endpoints():

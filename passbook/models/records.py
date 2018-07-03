@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.hybrid import hybrid_property
 
-from ..app import db
+from passbook.extensions import db
 from . import TimestampMixin
 
 class Category(db.Model):
