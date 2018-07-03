@@ -44,8 +44,9 @@ def build_database(app, build_fake_data=False):
 	db.create_all(app=app)
 
 	if build_fake_data:
-		user = User.query.filter_by(username='sammy').first()
-		print(user.id)
+		user = User(username='sammy', email='sammy@gmail.com', password='mojo_jojo23')
+		db.session.add(user)
+		db.session.commit()
 		from passbook.util.fakes import make_fake_records
 		make_fake_records(user)
 		print('Done making fake records!')

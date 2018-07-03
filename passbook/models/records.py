@@ -13,6 +13,9 @@ class Category(db.Model):
 
 	category_id = db.Column(db.Integer, primary_key=True)
 	category_name = db.Column(db.String(50))
+	site_records = db.relationship('SiteRecord', backref='categories')
+	wallet_records = db.relationship('WalletRecord', backref='categories')
+	file_records = db.relationship('EncryptedFileRecord', backref='categories')
 
 	def __init__(self, category_name):
 		self.category_name = category_name
@@ -28,7 +31,6 @@ class SiteRecord(TimestampMixin, db.Model):
 	name = db.Column(db.String(128), unique=True, nullable=False)
 	owner_id = db.Column(db.String(32), nullable=False) #TODO
 	category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
-	category = db.relationship('Category', db.backref=('categories', uselist=False))
 	website = db.Column(db.String(128), index=True, nullable=False)
 	username = db.Column(db.String(64), index=True)
 	password_hash = db.Column(db.String(128))
@@ -101,6 +103,7 @@ class WalletRecord(TimestampMixin, db.Model):
 	expiration_date = db.Column(db.Date, nullable=False)
 	cvc_code = db.Column(db.Integer, nullable=False)
 	zip_code = db.Column(db.Integer, nullable=False)
+	category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
 	description = db.Column(db.String(200)) #TODO: Update with config
 	notes = db.Column(db.String(500)) #TODO: Update with config
 	#TODO: tags
@@ -129,6 +132,7 @@ class EncryptedFileRecord(TimestampMixin, db.Model): #TODO: Finish
 	name = db.Column(db.String(128))
 	filename = db.Column(db.String(128))
 	document = db.Column(db.LargeBinary, nullable=False)
+	category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
 	description = db.Column(db.String(200))
 	notes = db.Column(db.String(500))
 
