@@ -23,7 +23,7 @@ def create_app(config=Config):
 	with app.app_context():
 		#CORS(app)
 		#SSLify(app)
-		build_database(app)
+		build_database(app, True)
 		build_bootstrap(app)
 		build_navigation_bar(app)
 		build_mail(app)
@@ -35,13 +35,20 @@ def create_app(config=Config):
 		#register_post_extensions(app)
 	return app
 
-def build_database(app):
+def build_database(app, build_fake_data=False):
 	from passbook.features.extensions import db
 	db.init_app(app)
 	migrate = Migrate(app, db)
 	from passbook.models.records import SiteRecord
 	from passbook.models.users import User
 	db.create_all(app=app)
+
+	if build_fake_data:
+		user = User.query.filter_by(username='sammy').first()
+		print(user.id)
+		from passbook.util.fakes import make_fake_records
+		make_fake_records(user)
+		print('Done making fake records!')
 
 def build_bootstrap(app):
 	from passbook.features.extensions import boot

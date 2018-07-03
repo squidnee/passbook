@@ -6,7 +6,6 @@ from passbook.models.records import SiteRecord, WalletRecord
 from passbook.forms.records import NewSiteRecordForm, NewWalletRecordForm, RecordSearchForm
 
 records_bp = Blueprint('records', __name__, url_prefix='/records')
-app.register_blueprint(records_bp)
 
 @records_bp.route('/all/', methods=['GET'])
 def list_all_records():

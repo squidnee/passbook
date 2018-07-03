@@ -1,7 +1,7 @@
 # Routes
 - [x] Have login page display the login form
 - [x] Have login page route to the sign up form
-- [ ] Have logout route redirect to the login page
+- [x] Have logout route redirect to the login page
 - [x] Redirect to the login page if not logged in, otherwise redirect to the index page
 - [ ] Have login page display over secure HTTP
 - [x] Route to reset password form on login page
@@ -10,13 +10,14 @@
 
 # Views
 - [ ] Get sidebar to show up on all pages
-- [ ] Set up basic dashboard at index page
+- [x] Set up basic dashboard at index page
 - [x] Add settings page (basic)
 - [x] Add settings page (advanced)
 - [x] Add user preferences page
 - [ ] Add an about page to the navigation bar
-- [ ] Finish uploads views/controller
+- [ ] Finish uploads view
 - [ ] Create a basic help page and add it to the navigation bar
+- [ ] Get the search form working
 
 # Forms
 - [ ] Implement CSRF protection in all forms
@@ -24,7 +25,10 @@
 - [x] Make working login form
 - [ ] Make login and register forms work with config's password limit size
 - [x] Make working registration form
-- [ ] Get the forms to work with BaseForm
+- [x] Make a form for adding records
+- [ ] Make a form for editing records
+- [x] Make a form for uploading files
+- [x] Make a search form
 
 # Models
 - [x] Remove password from User model, replace with password hash
@@ -41,8 +45,9 @@
 - [ ] Add notes model
 - [ ] Add ability to share records/notes
 - [ ] Add a Vault model
-- [ ] Add a Folder model
-- [ ] Add a Tag model
+- [x] Add a Folder model
+- [x] Add a Tag model
+- [ ] Make Record mixin
 
 # Managers
 - [x] Make a basic user manager template
@@ -60,19 +65,17 @@
 - [x] Fill out the login template
 - [x] Fill out the signup template
 - [x] Fill out navigation bar
-- [ ] Fill out the header and footer templates
-- [ ] Fill out the layout template
+- [x] Fill out the layout/base template
 - [x] Fill out the error templates
-- [ ] Fill out the form template
-- [ ] Fill out the basic settings template
+- [x] Fill out the form template
+- [x] Fill out the basic settings template
 - [ ] Fill out the advanced settings template
 - [ ] Fill out the user preferences template
 - [ ] Fill out the about page template
 - [ ] Fill out the help page template
 
 # Static
-- [ ] Fill out CSS
-- [ ] Get AngularJS running with Flask backend
+- [x] Fill out CSS
 - [ ] Get Flask-Assets working for assets
 
 # Utilities
@@ -86,8 +89,9 @@
 
 # Database
 - [x] Implement migration in initialization of app
-- [ ] Add some fake user data
-- [ ] Add some fake records data
+- [x] Add some fake user data
+- [x] Add some fake records data
+- [ ] Add all database relationships
 
 # CLI
 - [x] Load database with flask shell
@@ -104,12 +108,13 @@
 # File Structure
 - [ ] Add proper CLI folder
 - [x] Move extensions to a features folder
-- [ ] Add logging functionality to a features folder
+- [x] Add logging functionality to a features folder
 - [ ] Figure out where to add exceptions (and add them)!
 
 # Functionality
 - [ ] Add ability to star/favorite a record
 - [ ] Implement search functionality
+- [ ] Implement tagging
 
 # Extensions
 - [ ] Consider using Flask-Uploads
@@ -124,15 +129,15 @@
 - [ ] Set up Redis caching
 - [ ] Add signals script
 - [ ] Log invites, user actions, etc.
-- [ ] Add log file for non-debug mode
+- [x] Add log file for non-debug mode
 - [ ] Set up email error catching for non-debug mode
 
 # Future Features
 - Import / export / backup info
-- Tagging
-- Password generator
+- Tagging --> working on
+- Password generator --> working on
 - Filtering and sorting
-- Folders
+- Folders --> working on
 - Share passwords
 - Demand security question if not updated in a while
 - Multifactor authentication
@@ -144,9 +149,11 @@
 - Internationalization with Babel
 - Mobile support
 - Trusted devices
-- Secure notes
-- Encrypted documents
+- Secure notes --> working on
+- Encrypted documents --> working on
 - Autofill and autosave functionality
 - Custom fields
 - Support for multiple password managers
 - Password alerts in settings
+- Clear clipboard after a certain time
+- Automatic vault locking after certain amount of time inactive

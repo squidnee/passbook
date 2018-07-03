@@ -19,6 +19,9 @@ class Permissions:
 	GENERAL = 0x01
 	ADMIN = 0xff
 
+class Role:
+	pass
+
 class User(UserMixin, TimestampMixin, db.Model):
 
 	__tablename__ = 'users'
@@ -70,6 +73,12 @@ class UserPreferences(db.Model):
 
 	def __init__(self, user_id):
 		self.user_id = user_id
+
+class Family:
+	pass
+
+class TrustedUser:
+	pass
 
 #@login.user_loader
 #def load_user(id):

@@ -1,4 +1,50 @@
 {% extends 'base.html' %}
 {% block title %}Settings{% endblock %}
 {% block content %}
+<form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<legend>Settings</legend>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="master_password">Master Password</label>
+  <div class="col-md-4">
+    <button id="master_password" name="master_password" class="btn btn-default">Change</button>
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="master_password_reminder">Master Password Reminder</label>
+  <div class="col-md-4">
+    <button id="master_password_reminder" name="master_password_reminder" class="btn btn-default">View</button>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="email">Email</label>  
+  <div class="col-md-4">
+  <input id="email" name="email" type="text" placeholder="user@address.com" class="form-control input-md">
+  <span class="help-block">Change</span>  
+  </div>
+</div>
+
+<!-- Select Basic -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="timezone">Timezone</label>
+  <div class="col-md-4">
+    <select id="timezone" name="timezone" class="form-control">
+      <option value="1">PT</option>
+      <option value="2">CT</option>
+      <option value="3">ET</option>
+    </select>
+  </div>
+</div>
+
+</fieldset>
+</form>
+
 {% endblock %}

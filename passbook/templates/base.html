@@ -9,37 +9,39 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-            <div class="alert alert-info" role="alert">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-        {% block app_content %}
-        <div id="wrapper">
-            <div id="sidebar-wrapper">
-                <ul class="sidebar-nav">
-                    <li class="sidebar-brand"><a href="#">Home</a></li>
-                    <li><a href="#">Another link</a></li>
-                    <li><a href="#">Next link</a></li>
-                    <li><a href="#">Last link</a></li>
-                </ul>
-            </div>
-            <div id="page-content-wrapper">
-                <div class="page-content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-12">
-                        <!-- content of page -->
-                            </div>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+            <!-- It can be fixed with bootstrap affix http://getbootstrap.com/javascript/#affix-->
+                <div id="sidebar" class="well sidebar-nav">
+                    <h5><i class="glyphicon glyphicon-home"></i>
+                        <small><b>MANAGEMENT</b></small>
+                    </h5>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Add</a></li>
+                        <li><a href="#">Search</a></li>
+                    </ul>
+                    <h5><i class="glyphicon glyphicon-user"></i>
+                        <small><b>USERS</b></small>
+                    </h5>
+                    <ul class="nav nav-pills nav-stacked">
+                        <li><a href="#">List</a></li>
+                        <li><a href="#">Manage</a></li>
+                    </ul>
                 </div>
             </div>
+            <div class="col-md-8">
+            <!-- Content Here -->
+            </div>
         </div>
-        {% endblock %}
     </div>
+{% endblock %}
+{% block footer %}
+{% include 'partials/footer.html' %}
 {% endblock %}

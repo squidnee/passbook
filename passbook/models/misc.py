@@ -12,8 +12,5 @@ class Device(db.Model):
 	#last_auth_ip
 	#user_agent
 
-class Family:
-	pass
-
 class MailCache:
 	pass
