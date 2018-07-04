@@ -18,10 +18,12 @@
 - [ ] Finish uploads view
 - [ ] Create a basic help page and add it to the navigation bar
 - [ ] Get the search form working
-- [ ] Populate entries as a grid in the dashboard view
+- [x] Populate entries as a grid in the dashboard view
 - [ ] Implement fancy bootstrap password reset link
 - [ ] Get all links working on index page
 - [ ] Get a modal working for editing, sharing, etc.
+- [ ] Get bootstrapped credit card form
+- [ ] Make entries on index page clickable
 
 # Forms
 - [ ] Implement CSRF protection in all forms
@@ -81,6 +83,7 @@
 # Static
 - [x] Fill out CSS
 - [ ] Get Flask-Assets working for assets
+- [ ] Change names of CSS tags to be more relevant
 
 # Utilities
 - [ ] Add template filters
@@ -90,6 +93,7 @@
 - [ ] Make throwaway email account to test email functionality
 - [ ] Set up async tasking with Celery
 - [x] Set up password reset functionality
+- [ ] Use Celery to send registration email and password reset emails
 
 # Database
 - [x] Implement migration in initialization of app

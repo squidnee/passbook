@@ -1,5 +1,5 @@
 from flask import current_app as app
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, jsonify
 
 from flask_login import current_user, login_required, LoginManager
 
@@ -24,8 +24,8 @@ login_manager.login_view = 'login'
 @app.route('/index')
 #@login_required
 def index():
-	#site_records = SiteRecord.query.all()
-	return render_template('index.html')
+	site_records = SiteRecord.query.all()
+	return render_template('index.html', site_records=site_records)
 
 @app.route('/about')
 def about():

@@ -5,7 +5,7 @@
 <fieldset>
 
 <!-- Form Name -->
-<legend>Settings</legend>
+<legend>General Settings</legend>
 
 <!-- Button -->
 <div class="form-group">
@@ -27,8 +27,8 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="email">Email</label>  
   <div class="col-md-4">
-  <input id="email" name="email" type="text" placeholder="user@address.com" class="form-control input-md">
-  <span class="help-block">Change</span>  
+  <input type="text" readonly class="form-control-plaintext" id="static_email" value="email@example.com">
+  <button id="change_email" name="change_email" class="btn btn-default">Change</button> 
   </div>
 </div>
 
@@ -43,7 +43,7 @@
     </select>
   </div>
 </div>
-
+<p align=center><a href="/settings_advanced">Show Advanced Settings</a></p>
 </fieldset>
 </form>
 

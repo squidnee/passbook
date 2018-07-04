@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, SelectField, FileField, IntegerField
+from wtforms import StringField, PasswordField, SubmitField, SelectField, FileField, IntegerField, BooleanField
 from wtforms.validators import DataRequired, Email, Length
 from wtforms.widgets import TextArea, PasswordInput
 
@@ -11,7 +11,7 @@ class NewSiteRecordForm(FlaskForm):
     email = StringField('Email Address', validators=[Email()])
     description = StringField('Description', widget=TextArea(), validators=[Length(min=0, max=140)])
     notes = StringField('Notes', widget=TextArea(), validators=[Length(min=0, max=140)])
-    #require_password_reprompt = 
+    require_password_reprompt = BooleanField('Require Password Reprompting?')
     submit = SubmitField('Submit')
 
 class NewWalletRecordForm(FlaskForm):

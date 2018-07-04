@@ -31,7 +31,7 @@ class SiteRecord(TimestampMixin, db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(128), unique=True, nullable=False)
 	owner_id = db.Column(db.String(32), nullable=False) #TODO
-	category = db.Column(db.Integer, db.ForeignKey('categories.category_name'))
+	category = db.Column(db.String(32), db.ForeignKey('categories.category_name'))
 	website = db.Column(db.String(128), index=True, nullable=False)
 	username = db.Column(db.String(64), index=True)
 	password_hash = db.Column(db.String(128))

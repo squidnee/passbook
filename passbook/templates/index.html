@@ -72,7 +72,7 @@ Licensed under MIT
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR BUTTONS -->
                 <div class="profile-userbuttons">
-                    <a href="#" class="button">Add<i class="glyphicon glyphicon-plus"></i></a>
+                    <a data-toggle="modal" data-target="#add_modal" class="button">Add<i class="glyphicon glyphicon-plus"></i></a>
                 <!--    <button type="button" class="btn btn-success btn-sm">Follow</button>-->
                 <!--    <button type="button" class="btn btn-danger btn-sm">Message</button>-->
                 </div>
@@ -139,10 +139,20 @@ Licensed under MIT
                             <i class="glyphicon glyphicon-send"></i>
                             Share Credentials</a>
                         </li>
-                            <li>
+                        <li>
                             <a href="/help.html">
                             <i class="glyphicon glyphicon-question-sign"></i>
                             Help </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="#">Action</a>
+                                <a class="dropdown-item" href="#">Another action</a>
+                                <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -151,55 +161,17 @@ Licensed under MIT
         </div>
         
         <div class="col-sm-9">
-        
+        {% for record in site_records %}
            <div class="col-sm-4">
                  <div class="profile-content">
-                 
+                 <b>{{ record.name }}</b>
+                 <p>{{ record.username }}</p>
                 </div>
             </div>
+        {% endfor %}
         
-            <div class="col-sm-4">
-                 <div class="profile-content">
-        
-                    
-                </div>
-            </div>
-            <div class="col-sm-4">
-                 <div class="profile-content">
-        
-                    
-                </div>
-            </div>
-            <div class="col-sm-4">
-                 <div class="profile-content">
-        
-                    
-                </div>
-            </div>
-            <div class="col-sm-4">
-                 <div class="profile-content">
-        
-                    
-                </div>
-            </div><div class="col-sm-4">
-                 <div class="profile-content">
-        
-                    
-                </div>
-            </div><div class="col-sm-4">
-                 <div class="profile-content">
-        
-                    
-                </div>
-            </div><div class="col-sm-4">
-                 <div class="profile-content">
-        
-                    
-                </div>
-            </div>
         </div>
     </div>
 </div>
-
 <br>
 <br>
