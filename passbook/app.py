@@ -8,7 +8,6 @@ import os
 
 from flask import Flask
 from flask_migrate import Migrate
-#from flask_sslify import SSLify
 #from flask_cors import CORS
 #from passbook.features.extensions import compress
 from passbook.config import BaseConfig as Config
@@ -22,8 +21,7 @@ def create_app(config=Config):
 	print(app.config)
 	with app.app_context():
 		#CORS(app)
-		#SSLify(app)
-		build_database(app, True)
+		build_database(app, False)
 		build_bootstrap(app)
 		build_navigation_bar(app)
 		build_mail(app)
@@ -35,7 +33,7 @@ def create_app(config=Config):
 		#register_post_extensions(app)
 	return app
 
-def build_database(app, build_fake_data=False):
+def build_database(app, fake_data=False):
 	from passbook.features.extensions import db
 	db.init_app(app)
 	migrate = Migrate(app, db)
@@ -43,13 +41,9 @@ def build_database(app, build_fake_data=False):
 	from passbook.models.users import User
 	db.create_all(app=app)
 
-	if build_fake_data:
-		user = User(username='sammy', email='sammy@gmail.com', password='mojo_jojo23')
-		db.session.add(user)
-		db.session.commit()
-		from passbook.util.fakes import make_fake_records
-		make_fake_records(user)
-		print('Done making fake records!')
+	if fake_data:
+		from passbook.util.fakes import make_fake_data
+		make_fake_data()
 
 def build_bootstrap(app):
 	from passbook.features.extensions import boot

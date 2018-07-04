@@ -1,6 +1,7 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
+from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
 #from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -30,7 +31,7 @@ class SiteRecord(TimestampMixin, db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(128), unique=True, nullable=False)
 	owner_id = db.Column(db.String(32), nullable=False) #TODO
-	category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
+	category = db.Column(db.Integer, db.ForeignKey('categories.category_name'))
 	website = db.Column(db.String(128), index=True, nullable=False)
 	username = db.Column(db.String(64), index=True)
 	password_hash = db.Column(db.String(128))
@@ -79,14 +80,36 @@ class SiteRecord(TimestampMixin, db.Model):
 		pass
 	def access(self):
 		self.accessed = datetime.utcnow()
-	def reset(self):
-		pass
+	def delete(self):
+		db.session.delete(self)
+		db.session.commit()
+	def save(self):
+		db.session.add(self)
+		db.session.commit()
 	def encrypt(self):
 		pass
 	def decrypt(self):
 		pass
 	def to_json(self):
-		pass
+		return jsonify({
+			'id': self.id,
+			'name': self.name,
+			'owner_id': self.owner_id,
+			'category': self.category,
+			'website': self.website,
+			'username': self.username,
+			'email': self.email,
+			'description': self.description,
+			'notes': self.notes,
+			'starred': self.starred,
+			'files': self.files,
+			'expiration_date': self.expiration_date,
+			'version': self.version
+			})
+
+	@staticmethod
+	def get_all():
+		return SiteRecord.query.all()
 
 	def __repr__(self):
 		return '<Site Record %r>' % self.name
@@ -120,7 +143,6 @@ class WalletRecord(TimestampMixin, db.Model):
 
 	def __repr__(self):
 		return '<Wallet Record %r>' % self.card_name
-
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 

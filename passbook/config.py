@@ -62,3 +62,9 @@ class ProductionConfig(BaseConfig):
 
 class TestingConfig(BaseConfig):
 	TESTING = True
+
+app_config = {
+	'development': DevelopmentConfig,
+	'testing': TestingConfig,
+	'production': ProductionConfig
+}

@@ -18,6 +18,10 @@
 - [ ] Finish uploads view
 - [ ] Create a basic help page and add it to the navigation bar
 - [ ] Get the search form working
+- [ ] Populate entries as a grid in the dashboard view
+- [ ] Implement fancy bootstrap password reset link
+- [ ] Get all links working on index page
+- [ ] Get a modal working for editing, sharing, etc.
 
 # Forms
 - [ ] Implement CSRF protection in all forms
@@ -57,7 +61,7 @@
 - [ ] Implement Argon for salting
 - [ ] Set up SSL
 - [ ] Add middleware
-- [ ] Add a security question
+- [ ] Add a password hint
 - [ ] Enable encryption and decryption of documents
 - [ ] Add IP whitelisting?
 
@@ -104,6 +108,7 @@
 - [ ] Ensure the instance folder exists
 - [ ] If not testing, don't load instance config
 - [ ] Set up MAIL_FROM_EMAIL to fit throwaway email address used for testing
+- [ ] Replace BaseConfig with app_config
 
 # File Structure
 - [ ] Add proper CLI folder
@@ -122,7 +127,6 @@
 - [ ] Consider using Flask-Security
 - [ ] Implement Flask-Assets
 - [ ] Implement Flask-CORS
-- [ ] Implement Flask-SSLify
 
 # Testing / Logging
 - [x] Get Flask debug toolbar working

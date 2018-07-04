@@ -1,1 +1,0 @@
-from passbook.managers.users import UserManager

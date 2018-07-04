@@ -5,7 +5,7 @@ from flask import current_app as app
 from passbook.features.extensions import db
 from passbook.forms.auth import LoginForm, SignUpForm, ResetPasswordForm, ResetPasswordRequestForm
 from passbook.models.users import User
-from passbook.managers.users import UserManager
+from passbook.api.users import UserManager
 from passbook.features.mail import send_password_reset_email
 
 from werkzeug.urls import url_parse

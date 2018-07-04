@@ -11,6 +11,7 @@ from passbook.views import records
 from passbook.views import uploads
 
 from passbook.models.users import User
+from passbook.models.records import SiteRecord
 
 #from passbook.managers.auth import login_manager
 login_manager = LoginManager(app)
@@ -23,12 +24,13 @@ login_manager.login_view = 'login'
 @app.route('/index')
 #@login_required
 def index():
+	#site_records = SiteRecord.query.all()
 	return render_template('index.html')
 
 @app.route('/about')
 def about():
-	return render_template('about.html')
+	return render_template('dashboard/about.html')
 
 @app.route('/help')
 def help():
-	return render_template('help.html')
+	return render_template('dashboard/help.html')

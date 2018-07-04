@@ -27,3 +27,11 @@ def make_fake_records(user, count=25):
 	except Exception as e:
 		print(e)
 		db.session.rollback()
+
+def make_fake_data(count=25):
+	faker = Faker()
+	user = User(username=faker.user_name(), email=faker.email(), password='mojo_jojo23')
+	db.session.add(user)
+	db.session.commit()
+	make_fake_records(user, count=count)
+	print('Done making fake records!')

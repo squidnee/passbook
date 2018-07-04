@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request, jsonify
 from flask import current_app as app
 
 from passbook.features.extensions import db
@@ -7,7 +7,7 @@ from passbook.forms.records import NewSiteRecordForm, NewWalletRecordForm, Recor
 
 records_bp = Blueprint('records', __name__, url_prefix='/records')
 
-@records_bp.route('/all/', methods=['GET'])
+@records_bp.route('/all', methods=['GET'])
 def list_all_records():
 	pass
 
