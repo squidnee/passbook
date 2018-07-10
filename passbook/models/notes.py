@@ -1,21 +1,26 @@
 import enum
 
 from passbook.features.orm import db
-from sqlalchemy_utils import ChoiceType
-from .base import BaseTable
+from passbook.models.records import Record
 
-class NoteType(enum.Enum):
-	passwords = 1
-	wallet = 2
-	notes = 3
+NOTE_TYPES = [
+	"Passport",
+	"Driver's License",
+	"Wifi",
+	"Bank Account",
+	"Instant Messenger",
+	"Health Insurance",
+	"Membership",
+	"Database",
+	"Server",
+	"Email Account",
+	"Mobile Contact",
+	"Legal Document",
+	"SSN"
+]
 
-NoteType.passwords.label = _(u'Passwords')
-NoteType.wallet.label = _(u'Wallet')
-NoteType.notes.label = _(u'Notes')
+class NoteRecord(Record):
 
-class EncryptedNote(BaseTable):
+	__tablename__ = 'note_records'
 
-	__tablename__ = 'note'
-
-	name = db.Column(db.String(36))
-	type = db.Column(ChoiceType(NoteType, impl=db.Integer()))
+	note_type = db.Column(db.String(64))

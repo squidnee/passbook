@@ -1,25 +1,13 @@
 from passbook.features.orm import db
-from . import TimestampMixin
+from passbook.util.security import password as get_password_wrapper
 from hashlib import sha256
 from sqlalchemy_utils import ScalarListType
+from .base import BaseTable
 
-ALPHABET = ('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
-
-def get_hexdigest(salt, plaintext):
-	return sha256(salt + plaintext).hexdigest()
-
-class PasswordItemClient(db.Model):
+class PasswordItem(BaseTable):
 
 	__tablename__ = 'passwords'
 
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	record_id = db.Column(db.Integer)
-	username = db.Column(db.String(32))
-	#password = 
-	email = db.Column(db.String(32))
-	#service =
-
-class PasswordItem(PasswordItemClient):
 	digest_key = db.Column(db.String(64))
 	salt = db.Column(db.String(32))
 	length = db.Column(db.Integer)
@@ -52,8 +40,15 @@ class Service(db.Model):
 			alpha += '!@#$%^&*()-_'
 		return alpha
 
+	def get_password(self, plaintext):
+		return get_password_wrapper(plaintext, self.name, self.length, self.get_alphabet())
+
 	def generate_password(self, plaintext):
 		pass
+
+	@classmethod
+	def search(cls, query):
+		return cls.select().where(cls.name ** ('%%%s%%' % query))
 
 class ServicePasswordRules(db.Model):
 	service_id = db.Column(db.Integer, primary_key=True)

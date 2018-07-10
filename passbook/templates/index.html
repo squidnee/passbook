@@ -75,7 +75,7 @@ Licensed under MIT
                             Password Security</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#notes_and_files_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-file"></i>
                             Notes and Files</a>
                         </li>
@@ -127,16 +127,6 @@ Licensed under MIT
                             <i class="glyphicon glyphicon-question-sign"></i>
                             Contact </a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                            </div>
-                        </li>
                     </ul>
                 </div>
                 <!-- END MENU -->
@@ -156,9 +146,37 @@ Licensed under MIT
                     </div>
                     {% endfor %}
         </div>
+        <div role="tabpanel" class="tab-pane fade" id="notes_and_files_tab">
+        <button type="button" class="btn btn-labeled btn-default">
+                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Add Note</button>
+        <button type="button" class="btn btn-labeled btn-default">
+                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Add File</button>
+        <button type="button" class="btn btn-labeled btn-primary">
+                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Share</button>
+                    <h3>Notes</h3>
+                    <p> Notes will go here.</p>
+                    <h3>Files</h3>
+                    <p> Files will go here.</p>
+        </div>
         <div role="tabpanel" class="tab-pane fade" id="personal_info_tab">
-                    <h3>Personal Info Tab</h3>
-                    <p> Mauris imperdiet dignissim ante, in efficitur mauris elementum sed. Cras vulputate malesuada magna. Morbi tincidunt eros a dui cursus, vitae dignissim nulla scelerisque. Duis pharetra scelerisque mi vel luctus. Cras eu purus efficitur, blandit nisi id, fringilla nulla.</p>
+                    <h3>Personal Information</h3>
+                    <form class="form-horizontal">
+                    <fieldset>
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="first_name">First Name:</label>  
+                    <div class="col-md-4">
+                    <input id="first_name" name="first_name" type="text" placeholder="First Name" class="form-control input-md" required="">
+                    </div>
+                    </div>
+                    
+                    <div class="form-group">
+                    <label class="col-md-4 control-label" for="last_name">Last Name:</label>  
+                    <div class="col-md-4">
+                    <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="form-control input-md" required="">
+                    </div>
+                    </div>
+                    </fieldset>
+                    </form>
         </div>
         
         </div>

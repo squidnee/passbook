@@ -31,6 +31,7 @@ def create_app(config=Config):
 		register_endpoints(app)
 		create_logger(app)
 		#register_post_extensions(app)
+		register_permission_filters(app)
 	return app
 
 def build_database(app, fake_data=False):
@@ -42,7 +43,7 @@ def build_database(app, fake_data=False):
 	#	logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG)
 
 	migrate = Migrate(app, db)
-	from passbook.models.records import Record
+	from passbook.models.records import PasswordRecord
 	from passbook.models.users import User
 	db.create_all(app=app)
 
@@ -66,15 +67,24 @@ def add_csrf(app):
 	from passbook.features.extensions import csrf
 	csrf.init_app(app)
 
+def register_permission_filters(app):
+	from passbook.util.filters import can_reset_master_password, can_add_records_all, can_upload_files, can_sync_devices, \
+	can_view_record, can_edit_record, can_delete_record, can_add_note
+
+	app.jinja_env.filters['RESET_MASTER_PASSWORD'] = can_reset_master_password
+	app.jinja_env.filters['ADD_RECORDS_ALL'] = can_add_records_all
+	app.jinja_env.filters['UPLOAD_FILES'] = can_upload_files
+	app.jinja_env.filters['SYNC_DEVICES'] = can_sync_devices
+	app.jinja_env.filters['VIEW_CURR_RECORD'] = can_view_record
+	app.jinja_env.filters['EDIT_CURR_RECORD'] = can_edit_record
+	app.jinja_env.filters['DELETE_CURR_RECORD'] = can_delete_record
+	app.jinja_env.filters['ADD_NOTE_TO_CURR_RECORD'] = can_add_note
+
 def register_post_extensions(app):
 	pass
 
 def register_endpoints(app):
-	from passbook.views import errors, login, navigation, records, settings, uploads
-	from passbook.views.records import records_bp
-	from passbook.views.uploads import uploads_bp
-	app.register_blueprint(records_bp, url_prefix='/records')
-	app.register_blueprint(uploads_bp, url_prefix='/uploads')
+	from passbook.views import errors, login, navigation, password_records, wallet_records, file_records, note_records, settings
 
 def create_celery_app(app):
 	from passbook.features.tasks import celery

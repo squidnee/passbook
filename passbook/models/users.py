@@ -11,10 +11,9 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy_utils import IPAddressType
+from sqlalchemy_utils import IPAddressType, ScalarListType
 
 from passbook.features.orm import db
-from . import TimestampMixin
 from .base import BaseTable
 
 #basic_auth = HTTPBasicAuth()
@@ -32,7 +31,7 @@ class User(UserMixin, BaseTable):
 	username = db.Column(db.String(32), unique=True, nullable=False)
 	email = db.Column(db.String(120), unique=True, nullable=False, index=True)
 	password_hash = db.Column(String(128))
-	#devices
+	#device = db.Column(db.Integer, ForeignKey('device.id'), nullable=False)
 	#preferences
 	#history
 
@@ -108,7 +107,22 @@ class Device(BaseTable):
 	def __repr__(self):
 		return '<Device %r>' % (self.name)
 
+class TrustedUser(BaseTable):
 
-class TrustedUser:
-	def can(self):
-		pass
+	__tablename__ = 'trusted_user'
+
+	username = db.Column(db.String(64), unique=True)
+	email = db.Column(db.String(64), unique=True, nullable=False)
+	first_name = db.Column(db.String(64))
+	last_name = db.Column(db.String(64))
+	permissions = db.Column(ScalarListType())
+
+	def __init__(self, username=None, email=None, first_name=None, last_name=None, permissions=None):
+		self.username = username
+		self.email = email
+		self.first_name = first_name
+		self.last_name = last_name
+		self.permissions = permissions
+
+	def __repr__(self):
+		return '<TrustedUser %r>' % (self.username)

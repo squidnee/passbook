@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+    <body>
+        {% for file in file_data %}
+        <h3>{{ file.data.name }}</h3>
+        {% endfor %}
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.errors }}
+            {{ form.hidden_tag() }}
+            {% for upload in form.uploads.entries %}
+            <p>
+            {{ upload }}
+            </p>
+            {% endfor %}
+            <p>
+                <input type="submit" value="Submit">
+            </p>
+        </form>
+    </body>
+</html>

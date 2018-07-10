@@ -14,7 +14,7 @@
 - [x] Add settings page (basic)
 - [x] Add settings page (advanced)
 - [x] Add user preferences page
-- [ ] Add an about page to the navigation bar
+- [x] Add an about page to the navigation bar
 - [ ] Finish uploads view
 - [ ] Create a basic help page and add it to the navigation bar
 - [ ] Get the search form working
@@ -35,6 +35,7 @@
 - [ ] Make a form for editing records
 - [x] Make a form for uploading files
 - [x] Make a search form
+- [ ] Set up custom validators with existing forms
 
 # Models
 - [x] Remove password from User model, replace with password hash
@@ -42,8 +43,8 @@
 - [ ] Add getters and setters to User model
 - [x] Add a model for user preferences
 - [ ] Add description and notes max length from config to Record model
-- [ ] Finish SiteRecord model
-- [ ] Finish WalletRecord model
+- [x] Finish SiteRecord model
+- [x] Finish WalletRecord model
 - [ ] Finish Device model
 - [ ] Make a model for encrypted documents
 - [ ] After making password generation utility, add it to user model
@@ -53,7 +54,7 @@
 - [ ] Add a Vault model
 - [x] Add a Folder model
 - [x] Add a Tag model
-- [ ] Make Record mixin
+- [x] Make Record mixin
 
 # Managers
 - [x] Make a basic user manager template
@@ -82,12 +83,12 @@
 
 # Static
 - [x] Fill out CSS
-- [ ] Get Flask-Assets working for assets
 - [ ] Change names of CSS tags to be more relevant
 
 # Utilities
 - [ ] Add template filters
 - [ ] Add password generation utility
+- [x] Add permissions
 
 # Mail
 - [ ] Make throwaway email account to test email functionality
@@ -114,6 +115,7 @@
 - [ ] Set up MAIL_FROM_EMAIL to fit throwaway email address used for testing
 - [ ] Replace BaseConfig with app_config
 - [ ] Generate Vault token
+- [ ] Update last seen for User upon app initialization
 
 # File Structure
 - [ ] Add proper CLI folder

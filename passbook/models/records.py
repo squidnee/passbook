@@ -1,113 +1,141 @@
+import os
+import enum
+
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import *
-from sqlalchemy.orm import *
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy import event
+#from sqlalchemy import event
+from sqlalchemy.orm import relationship, backref
+#from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy.ext.declarative import declarative_base, declared_attr
 from sqlalchemy_utils import JSONType, ScalarListType
 
 from passbook.features.orm import db
-from . import TimestampMixin
-from .base import BaseTable
+from passbook.util.security import encrypt_file, decrypt_file
+from passbook.models.base import BaseTable
 
 Base = declarative_base()
 
+tag_table = db.Table('tags', Base.metadata, db.Column('password_record_id', db.Integer, db.ForeignKey('password_records.id')),
+	db.Column('wallet_record_id', db.Integer, db.ForeignKey('wallet_records.id')),
+		db.Column('file_record_id', db.Integer, db.ForeignKey('file_records.id'))
+		)
+
 class Record(BaseTable):
 
-	__tablename__ = 'record'
+	__tablename__ = 'records'
 
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	name = db.Column(db.String(128), unique=True, nullable=False)
-	website = db.Column(db.String(128))
+	description = db.Column(db.String(200))
+	starred = db.Column(db.Boolean, default=False)
+	reprompt = db.Column(db.Boolean, default=False)
+	color = db.Column(db.String(36))
+	notes = db.Column(db.String(128))
+	details = db.Column(JSONType())
+	attachments = db.Column(ScalarListType())
+	history = db.Column(ScalarListType())
+	type = db.Column(db.String(50))
+
+	__mapper_args__ = {
+		'polymorphic_identity':'records',
+		'polymorphic_on': type
+	}
+
+	def _get_name(self):
+		return self.name
+	def _get_description(self):
+		return self.description
+	def _get_starred(self):
+		return self.starred
+	def _get_reprompt(self):
+		return self.reprompt
+	def _get_color(self):
+		return self.color
+	def _get_notes(self):
+		return self.notes
+	def _get_flags(self):
+		pass
+	def _get_tags(self):
+		pass
+	def _get_attachments(self):
+		pass
+	def _get_history(self):
+		pass
+
+	def change_description(self):
+		pass
+
+	def change_color(self):
+		pass
+
+class PasswordRecord(Record):
+
+	__tablename__ = 'password_records'
+
+	id = db.Column(db.Integer, db.ForeignKey('records.id'), primary_key=True)
+	service_name = db.Column(db.String(128))
+	service_url = db.Column(db.String(128))
+	service_domain = db.Column(db.String(64))
 	email = db.Column(db.String(128))
 	username = db.Column(db.String(128))
-	#type
-	#attrs
-	#history
-	#tags = relationship('Tag', secondary=tagging, backref='records')
-	#attachments
-	#notes
-	#flags
-	details = db.Column(JSONType)
+	password = db.Column(db.String(128))
 
-	def __init__(self, name, website, username=None, password=None, email=None, notes=None, description=None):
+	__mapper_args__ = {'polymorphic_identity': 'password_records'}
+
+	def __init__(self, name=None, service_name=None, service_url=None, service_domain=None, username=None, password=None, email=None, notes=None, description=None, reprompt=None):
 		self.name = name
-		self.website = website
+		self.service_name = service_name
+		self.service_url = service_url
+		self.service_domain = service_domain
 		self.username = username
 		self.password = password
 		self.email = email
 		self.description = description
 		self.notes = notes
+		self.reprompt = reprompt
 
-	def _get_name(self):
-		return self.name
-	def _get_owner_id(self):
-		return self.owner_id
-	def _get_website(self):
-		return self.website
+	def _get_service_name(self):
+		return self.service_name
+	def _get_service_domain(self):
+		return self.service_domain
+	def _get_service(self):
+		pass
 	def _get_username(self):
 		return self.username
 	def _get_email(self):
 		return self.email
-	def _get_description(self):
-		return self.description
-	def _get_notes(self):
-		return self.notes
 	def set_password(self, password):
 		self.password_hash = generate_password_hash(password)
 	def check_password(self, password):
 		return check_password_hash(self.password_hash, password)
-	def update(self, properties):
-		self.updated = datetime.utcnow()
-		self.version += 1
-	def update_credentials(self, creds):
-		pass
 	def delete(self):
 		db.session.delete(self)
 		db.session.commit()
 	def save(self):
 		db.session.add(self)
 		db.session.commit()
-	def encrypt(self):
-		pass
-	def decrypt(self):
-		pass
-
-	@staticmethod
-	def get_all():
-		return Record.query.all()
 
 	def __repr__(self):
-		return '<Site Record %r>' % self.name
+		return '<PasswordRecord %r>' % self.name
 
-class RecordAttributes(object):
-	description = db.Column(db.String(200))
-	starred = db.Column(db.Boolean, default=False)
-	reprompt = db.Column(db.Boolean, default=False)
-	color = db.Column(db.String(36))
-
-class WalletRecord(TimestampMixin, db.Model):
+class WalletRecord(Record):
 
 	__tablename__ = 'wallet_records'
 
-	id = db.Column(db.Integer, primary_key=True)
-	card_name = db.Column(db.String(128), unique=True, nullable=False)
+	id = db.Column(db.Integer, db.ForeignKey('records.id'), primary_key=True)
 	card_type = db.Column(db.String(128))
 	card_number = db.Column(db.Integer, nullable=False)
 	name_on_card = db.Column(db.String(128), nullable=False)
-	expiration_date = db.Column(db.Date, nullable=False)
+	expiration_date = db.Column(db.String(5), nullable=False)
 	cvc_code = db.Column(db.Integer, nullable=False)
 	zip_code = db.Column(db.Integer, nullable=False)
-	description = db.Column(db.String(200)) #TODO: Update with config
-	notes = db.Column(db.String(500)) #TODO: Update with config
-	#TODO: tags
 
-	def __init__(self, card_name, card_number, name_on_card, expiration_date, cvc_code, zip_code, description=None, notes=None):
-		self.card_name = card_name
+	__mapper_args__ = {'polymorphic_identity': 'wallet_records'}
+
+	def __init__(self, name, card_number, name_on_card, expiration_date, cvc_code, zip_code, description=None, notes=None):
+		self.name = name
 		self.card_number = card_number
 		self.name_on_card = name_on_card
 		self.expiration_date = expiration_date
@@ -117,47 +145,94 @@ class WalletRecord(TimestampMixin, db.Model):
 		self.notes = notes
 
 	def __repr__(self):
-		return '<Wallet Record %r>' % self.card_name
+		return '<WalletRecord %r>' % self.card_name
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-class EncryptedFileRecord(BaseTable): #TODO: Finish
+class FileRecord(Record):
 
-	__tablename__ = 'file'
+	__tablename__ = 'file_records'
 
-	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-	name = db.Column(db.String(128))
-	filename = db.Column(db.String(128))
-	document = db.Column(db.LargeBinary, nullable=False)
-	description = db.Column(db.String(200))
-	notes = db.Column(db.String(500))
+	id = db.Column(db.Integer, db.ForeignKey('records.id'), primary_key=True)
+	encrypted_filename = db.Column(db.String(128))
+	unencrypted_filename = db.Column(db.String(128))
+	extension = db.Column(db.String(6))
+	encrypted_content = db.Column(db.LargeBinary)
+	file_path = db.Column(db.String(128))
+	parent_id = db.Column(db.Integer, default=None)
+	unencrypted_file_size = db.Column(db.Integer)
 
-	def __init__(self, name, filename, document, description=None, notes=None):
+	__mapper_args__ = {'polymorphic_identity': 'file_records'}
+
+	def __init__(self, name=None, encrypted_filename=None, unencrypted_filename=None, unencrypted_content=None, file_path=None, description=None, notes=None):
 		self.name = name
-		self.filename = filename
-		self.document = document
+		self.encrypted_filename = encrypted_filename
+		self.file_path = file_path
 		self.description = description
 		self.notes = notes
+		self.unencrypted_file_size = os.path.getsize(unencrypted_filename) if unencrypted_filename else None
+
+		encrypt_file(in_filename=unencrypted_filename, out_filename=encrypted_filename)
 
 	def allowed_filename(self, filename):
 		return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+	def set_extension(self, filename):
+		pass
+
+	def decrypt(self, in_filename=None, out_filename=None):
+		if not in_filename:
+			in_filename = self.encrypted_filename
+
+		if not out_filename:
+			out_filename = self.unencrypted_filename
+
+		decrypt_file(in_filename, out_filename)
+
 	def __repr__(self):
-		return '<File %r>' % self.filename
+		return '<FileRecord %r>' % self.encrypted_filename
 
-class DecryptedFile: #TODO: Finish
-	def __init__(self, name):
-		self.name = name
+class Tag(db.Model):
 
-class Tag(BaseTable):
-
-	__tablename__ = 'tag'
+	__tablename__ = 'tags'
 
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	name = db.Column(db.String(100), unique=True, nullable=False)
+	password_record_id = db.Column(db.Integer,db.ForeignKey('password_records.id'))
+	wallet_record_id = db.Column(db.Integer,db.ForeignKey('wallet_records.id'))
+	file_record_id = db.Column(db.Integer,db.ForeignKey('file_records.id'))
 
 	def __init__(self, name=None):
 		self.name = name
 
+	@property
+	def serialize(self):
+		return {
+		'id': self.id,
+		'name': self.name
+		}
+
 	def __repr__(self):
 		return '<Tag %r>' % self.name
+
+class Flag(db.Model):
+
+	__tablename__ = 'flags'
+
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	name = db.Column(db.String(100), unique=True, nullable=False)
+	description = db.Column(db.String(200), unique=True, nullable=False)
+
+	def __init__(self, name, description):
+		self.name = name
+		self.description = description
+
+	@property
+	def serialize(self):
+		return {
+		'id': id,
+		'name': name
+		}
+
+	def __repr__(self):
+		return '<Flag %r>' % self.name

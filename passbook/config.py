@@ -33,6 +33,7 @@ class BaseConfig(object):
 
 	# Form options
 	WTF_CSRF_ENABLED = True
+	MAX_FIELD_LENGTH = 50
 
 	# Mail options
 	MAIL_FROM_EMAIL = "sydney@example.com"
@@ -44,9 +45,6 @@ class BaseConfig(object):
 	COMPRESS_MIMETYPES = ['text/html', 'text/css', 'text/xml', 'application/json', 'application/javascript']
 	COMPRESS_LEVEL = 6
 	COMPRESS_MIN_SIZE = 500
-
-	# Organization options
-	COLORS = ["RED", "ORANGE", "YELLOW", "GREEN", "BLUE", "PURPLE", "PINK"]
 
 	# File options
 	UPLOAD_FOLDER = '../instance/uploads'

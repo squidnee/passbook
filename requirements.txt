@@ -19,3 +19,4 @@ celery
 pyjwt
 faker
 sqlalchemy-utils
+marshmallow

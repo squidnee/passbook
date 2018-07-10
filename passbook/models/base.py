@@ -6,6 +6,25 @@ from flask import current_app as app
 from sqlalchemy.ext.declarative import DeclarativeMeta
 from passbook.features.orm import db
 
+class BaseList:
+	__abstract__ = True
+	_lst = []
+
+	def add(self, value):
+		self._lst.append(value)
+
+	def extend(self):
+		pass
+
+	def remove(self):
+		pass
+
+	def find(self):
+		pass
+
+	def size(self):
+		return len(self._lst)
+
 class BaseModel:
 	__model__ = None
 
@@ -45,12 +64,20 @@ class BaseTable(db.Model):
 
 	def save(self):
 		db.session.add(self)
-		db.session.flush()
+		db.session.commit()
 
 	def update(self, **kwargs):
 		for k, v in kwargs.items():
 			setattr(self, k, v)
 		self.save()
+
+	def update_credentials(self):
+		self.last_updated = datetime.utcnow()
+		self.version += 1
+
+	@classmethod
+	def get_all(cls_):
+		return cls_.query.all()
 
 	@classmethod
 	def find(cls_, **kwargs):
