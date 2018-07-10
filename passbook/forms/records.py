@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, FileField, IntegerField, BooleanField
 from wtforms.validators import DataRequired, Email, Length
 from wtforms.widgets import TextArea, PasswordInput
+from wtforms.ext.sqlalchemy.orm import model_form
 
 class NewSiteRecordForm(FlaskForm):
     name = StringField('Record Name', validators=[DataRequired()])

@@ -5,6 +5,7 @@ to support asynchronous tasking.
 """
 
 import os
+import logging
 
 from flask import Flask
 from flask_migrate import Migrate
@@ -25,7 +26,6 @@ def create_app(config=Config):
 		build_bootstrap(app)
 		build_navigation_bar(app)
 		build_mail(app)
-		build_toolbar(app)
 		add_csrf(app)
 		#compress.init_app(app)
 		register_endpoints(app)
@@ -34,10 +34,15 @@ def create_app(config=Config):
 	return app
 
 def build_database(app, fake_data=False):
-	from passbook.features.extensions import db
+	from passbook.features.orm import db
 	db.init_app(app)
+
+	#if app.config['DEBUG'] is True:
+	#	logging.basicConfig()
+	#	logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG)
+
 	migrate = Migrate(app, db)
-	from passbook.models.records import SiteRecord
+	from passbook.models.records import Record
 	from passbook.models.users import User
 	db.create_all(app=app)
 
@@ -57,10 +62,6 @@ def build_mail(app):
 	from passbook.features.extensions import mail
 	mail.init_app(app)
 
-def build_toolbar(app):
-	from passbook.features.extensions import toolbar
-	toolbar.init_app(app)
-
 def add_csrf(app):
 	from passbook.features.extensions import csrf
 	csrf.init_app(app)
@@ -69,8 +70,6 @@ def register_post_extensions(app):
 	pass
 
 def register_endpoints(app):
-	## TODO : Set up assets with Flask-Assets
-	## TODO : Set up SSL
 	from passbook.views import errors, login, navigation, records, settings, uploads
 	from passbook.views.records import records_bp
 	from passbook.views.uploads import uploads_bp

@@ -1,8 +1,8 @@
 from faker import Faker
 from random import choice
-from passbook.features.extensions import db
+from passbook.features.orm import db
 from passbook.models.users import User
-from passbook.models.records import SiteRecord
+from passbook.models.records import Record
 
 def get_random_category():
 	categories = ['work', 'travel', 'finance', 'social media', 'shopping', 'news', 'personal', 'health', 'other']
@@ -23,9 +23,7 @@ def make_fake_user():
 def make_fake_records(user, count=25):
 	faker = Faker()
 	for i in range(count):
-		record = SiteRecord(name=faker.domain_name(), 
-							owner_id=user.id, 
-							website=faker.url(), email=faker.safe_email(), username=faker.user_name())
+		record = Record(name=faker.domain_name(), website=faker.url(), email=faker.safe_email(), username=faker.user_name())
 		db.session.add(record)
 	try:
 		db.session.commit()

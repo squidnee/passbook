@@ -113,6 +113,7 @@
 - [ ] If not testing, don't load instance config
 - [ ] Set up MAIL_FROM_EMAIL to fit throwaway email address used for testing
 - [ ] Replace BaseConfig with app_config
+- [ ] Generate Vault token
 
 # File Structure
 - [ ] Add proper CLI folder

@@ -9,7 +9,6 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_compress import Compress
 from flask_wtf import CSRFProtect
-from flask_debugtoolbar import DebugToolbarExtension
 from flask_bootstrap import Bootstrap
 from flask_nav import Nav
 
@@ -18,6 +17,5 @@ login_manager = LoginManager()
 mail = Mail()
 compress = Compress()
 csrf = CSRFProtect()
-toolbar = DebugToolbarExtension()
 boot = Bootstrap()
 nav = Nav()

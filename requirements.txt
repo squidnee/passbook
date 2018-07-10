@@ -1,5 +1,6 @@
 Flask
-Flask-SQLAlchemy
+sqlalchemy
+flask_sqlalchemy
 Flask-Login
 flask_wtf
 Flask-Migrate
@@ -7,7 +8,6 @@ Flask-Mail
 flask-compress
 flask-bootstrap
 flask-nav
-flask-debugtoolbar
 flask-httpauth
 flask-cors
 pyqt5
@@ -18,3 +18,4 @@ click
 celery
 pyjwt
 faker
+sqlalchemy-utils

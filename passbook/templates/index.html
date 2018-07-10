@@ -1,10 +1,11 @@
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/index.css')}}">
-<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/search.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/tabs.css')}}">
 <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="{{url_for('static', filename='js/tabs.js')}}"></script>
 <!------ Include the above in your HEAD tag ---------->
 
 <!--
@@ -12,46 +13,6 @@ User Profile Sidebar by @keenthemes
 A component of Metronic Theme - #1 Selling Bootstrap 3 Admin Theme in Themeforest: http://j.mp/metronictheme
 Licensed under MIT
 -->
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="Search..." />
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <form class="form-horizontal" role="form">
-                                  <div class="form-group">
-                                    <label for="filter">Filter by</label>
-                                    <select class="form-control">
-                                        <option value="0" selected>All Snippets</option>
-                                        <option value="1">Featured</option>
-                                        <option value="2">Most popular</option>
-                                        <option value="3">Top rated</option>
-                                        <option value="4">Most commented</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contain">Author</label>
-                                    <input class="form-control" type="text" />
-                                </div>
-                                <div class="form-group">
-                                    <label for="contain">Contains the words</label>
-                                    <input class="form-control" type="text" />
-                                </div>
-                                <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                            </form>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
 <div class="container">
     <div class="row profile">
         <div class="col-md-3">
@@ -72,9 +33,25 @@ Licensed under MIT
                 <!-- END SIDEBAR USER TITLE -->
                 <!-- SIDEBAR BUTTONS -->
                 <div class="profile-userbuttons">
-                    <a data-toggle="modal" data-target="#add_modal" class="button">Add<i class="glyphicon glyphicon-plus"></i></a>
+                    <a href="#" class="button" data-toggle="modal" data-target="#myModal">Add<i class="glyphicon glyphicon-plus"></i></a>
                 <!--    <button type="button" class="btn btn-success btn-sm">Follow</button>-->
                 <!--    <button type="button" class="btn btn-danger btn-sm">Message</button>-->
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+    
+      <!-- Modal content-->
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                    <h4 class="modal-title">Modal Header</h4>
+                            </div>
+                                <div class="modal-body">
+                                    <p>Some text in the modal.</p>
+                                </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div></div></div>
+                            </div>
                 </div>
                 <!-- END SIDEBAR BUTTONS -->
                 <!-- SIDEBAR MENU -->
@@ -88,61 +65,67 @@ Licensed under MIT
                         </li>
                         <li>
                         <li>
-                            <a href="#">
+                            <a href="#passwords_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-lock"></i>
                             Passwords</a>
                         </li>
                         <li>
                             <a href="#">
-                            <i class="glyphicon glyphicon-file"></i>
-                            Notes</a>
+                            <i class="glyphicon glyphicon-paperclip"></i>
+                            Password Security</a>
                         </li>
                         <li>
                             <a href="#">
-                            <i class="glyphicon glyphicon-paperclip"></i>
-                            Files</a>
+                            <i class="glyphicon glyphicon-file"></i>
+                            Notes and Files</a>
                         </li>
                         <li>
                             <a href="#">
                             <i class="glyphicon glyphicon-flag"></i>
-                            Flagged</a>
+                            Flagged Records</a>
                         </li>
-                        <li class="nav-header">Wallet</li>
+                        <li class="nav-header">Wallet Manager</li>
                         <li>
                             <a href="#">
                             <i class="glyphicon glyphicon-credit-card"></i>
                             Credit Cards</a>
                         </li>
                         <li>
-                            <a href="#" target="_blank">
+                            <a href="#personal_info_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-user"></i>
                             Personal Information</a>
                         </li>
                         <li>
-                            <a href="#" target="_blank">
+                            <a href="#">
                             <i class="glyphicon glyphicon-eye-open"></i>
                             Identification</a>
                         </li>
-                        <li class="nav-header">Contacts</li>
+                        <li class="nav-header">Contact Manager</li>
                         <li>
                             <a href="#">
                             <i class="glyphicon glyphicon-exclamation-sign"></i>
-                            Emergency Contact</a>
-                        </li>
-                        <li>
-                            <a href="#">
-                            <i class="glyphicon glyphicon-envelope"></i>
-                            Invite User</a>
+                            Trusted Users</a>
                         </li>
                         <li>
                             <a href="#">
                             <i class="glyphicon glyphicon-send"></i>
                             Share Credentials</a>
                         </li>
+                        <li class="nav-header">Other</li>
                         <li>
-                            <a href="/help.html">
+                            <a href="dashboard/about.html">
+                            <i class="glyphicon glyphicon-question-sign"></i>
+                            About </a>
+                        </li>
+                        <li>
+                            <a href="dashboard/help.html">
                             <i class="glyphicon glyphicon-question-sign"></i>
                             Help </a>
+                        </li>
+                        <li>
+                            <a href="dashboard/contact.html">
+                            <i class="glyphicon glyphicon-question-sign"></i>
+                            Contact </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
@@ -161,15 +144,24 @@ Licensed under MIT
         </div>
         
         <div class="col-sm-9">
-        {% for record in site_records %}
-           <div class="col-sm-4">
-                 <div class="profile-content">
-                 <b>{{ record.name }}</b>
-                 <p>{{ record.username }}</p>
-                </div>
-            </div>
-        {% endfor %}
+        <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade" id="passwords_tab">
+                    <h3>Passwords Tab</h3>
+                    {% for record in site_records %}
+                    <div class="col-sm-4">
+                        <div class="profile-content">
+                            <b>{{ record.name }}</b>
+                            <p>{{ record.username }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="personal_info_tab">
+                    <h3>Personal Info Tab</h3>
+                    <p> Mauris imperdiet dignissim ante, in efficitur mauris elementum sed. Cras vulputate malesuada magna. Morbi tincidunt eros a dui cursus, vitae dignissim nulla scelerisque. Duis pharetra scelerisque mi vel luctus. Cras eu purus efficitur, blandit nisi id, fringilla nulla.</p>
+        </div>
         
+        </div>
         </div>
     </div>
 </div>

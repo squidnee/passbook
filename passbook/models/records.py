@@ -3,51 +3,39 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask import jsonify
 from flask_sqlalchemy import SQLAlchemy
-#from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy import *
+from sqlalchemy.orm import *
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.hybrid import hybrid_property
+from sqlalchemy import event
+from sqlalchemy_utils import JSONType, ScalarListType
 
-from passbook.features.extensions import db
+from passbook.features.orm import db
 from . import TimestampMixin
+from .base import BaseTable
 
-class Category(db.Model):
+Base = declarative_base()
 
-	__tablename__ = 'categories'
+class Record(BaseTable):
 
-	category_id = db.Column(db.Integer, primary_key=True)
-	category_name = db.Column(db.String(50))
-	site_records = db.relationship('SiteRecord', backref='categories')
-	wallet_records = db.relationship('WalletRecord', backref='categories')
-	file_records = db.relationship('EncryptedFileRecord', backref='categories')
+	__tablename__ = 'record'
 
-	def __init__(self, category_name):
-		self.category_name = category_name
-
-	def __repr__(self):
-		return '<Category %r>' % self.category_name
-
-class SiteRecord(TimestampMixin, db.Model):
-
-	__tablename__ = 'site_records'
-
-	id = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	name = db.Column(db.String(128), unique=True, nullable=False)
-	owner_id = db.Column(db.String(32), nullable=False) #TODO
-	category = db.Column(db.String(32), db.ForeignKey('categories.category_name'))
-	website = db.Column(db.String(128), index=True, nullable=False)
-	username = db.Column(db.String(64), index=True)
-	password_hash = db.Column(db.String(128))
-	description = db.Column(db.String(200)) #TODO: Update with config
-	notes = db.Column(db.String(500)) #TODO: Update with config
-	email = db.Column(db.String(120), index=True)
-	expiration_date = db.Column(db.Date)
-	version = db.Column(db.Integer, default=1)
-	files = db.Column(db.LargeBinary)
-	starred = db.Column(db.Boolean, default=False)
-	reprompt = db.Column(db.Boolean, default=False)
-	#TODO: tags, color, flags
+	website = db.Column(db.String(128))
+	email = db.Column(db.String(128))
+	username = db.Column(db.String(128))
+	#type
+	#attrs
+	#history
+	#tags = relationship('Tag', secondary=tagging, backref='records')
+	#attachments
+	#notes
+	#flags
+	details = db.Column(JSONType)
 
-	def __init__(self, name, owner_id, website, username=None, password=None, email=None, notes=None, description=None):
+	def __init__(self, name, website, username=None, password=None, email=None, notes=None, description=None):
 		self.name = name
-		self.owner_id = owner_id
 		self.website = website
 		self.username = username
 		self.password = password
@@ -78,8 +66,6 @@ class SiteRecord(TimestampMixin, db.Model):
 		self.version += 1
 	def update_credentials(self, creds):
 		pass
-	def access(self):
-		self.accessed = datetime.utcnow()
 	def delete(self):
 		db.session.delete(self)
 		db.session.commit()
@@ -90,29 +76,19 @@ class SiteRecord(TimestampMixin, db.Model):
 		pass
 	def decrypt(self):
 		pass
-	def to_json(self):
-		return jsonify({
-			'id': self.id,
-			'name': self.name,
-			'owner_id': self.owner_id,
-			'category': self.category,
-			'website': self.website,
-			'username': self.username,
-			'email': self.email,
-			'description': self.description,
-			'notes': self.notes,
-			'starred': self.starred,
-			'files': self.files,
-			'expiration_date': self.expiration_date,
-			'version': self.version
-			})
 
 	@staticmethod
 	def get_all():
-		return SiteRecord.query.all()
+		return Record.query.all()
 
 	def __repr__(self):
 		return '<Site Record %r>' % self.name
+
+class RecordAttributes(object):
+	description = db.Column(db.String(200))
+	starred = db.Column(db.Boolean, default=False)
+	reprompt = db.Column(db.Boolean, default=False)
+	color = db.Column(db.String(36))
 
 class WalletRecord(TimestampMixin, db.Model):
 
@@ -126,7 +102,6 @@ class WalletRecord(TimestampMixin, db.Model):
 	expiration_date = db.Column(db.Date, nullable=False)
 	cvc_code = db.Column(db.Integer, nullable=False)
 	zip_code = db.Column(db.Integer, nullable=False)
-	category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
 	description = db.Column(db.String(200)) #TODO: Update with config
 	notes = db.Column(db.String(500)) #TODO: Update with config
 	#TODO: tags
@@ -146,15 +121,14 @@ class WalletRecord(TimestampMixin, db.Model):
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
-class EncryptedFileRecord(TimestampMixin, db.Model): #TODO: Finish
+class EncryptedFileRecord(BaseTable): #TODO: Finish
 
-	__tablename__ = 'files'
+	__tablename__ = 'file'
 
-	id = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	name = db.Column(db.String(128))
 	filename = db.Column(db.String(128))
 	document = db.Column(db.LargeBinary, nullable=False)
-	category_id = db.Column(db.Integer, db.ForeignKey('categories.category_id'))
 	description = db.Column(db.String(200))
 	notes = db.Column(db.String(500))
 
@@ -175,55 +149,15 @@ class DecryptedFile: #TODO: Finish
 	def __init__(self, name):
 		self.name = name
 
-class NoteRecord(TimestampMixin, db.Model):
+class Tag(BaseTable):
 
-	__tablename__ = 'notes'
+	__tablename__ = 'tag'
 
-	note_id = db.Column(db.Integer, primary_key=True)
-	note_name = db.Column(db.String(128))
-	files = db.Column(db.LargeBinary)
-	starred = db.Column(db.Boolean, default=False)
+	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	name = db.Column(db.String(100), unique=True, nullable=False)
 
-class Folder(TimestampMixin, db.Model):
-
-	__tablename__ = 'folders'
-
-	folder_id = db.Column(db.Integer, primary_key=True)
-	folder_name = db.Column(db.String(120), unique=True, nullable=False)
-	parent_id = db.Column(db.String(120), default=None)
-	#type [files, site_records, wallet_records, notes]
-	#tags
-	#tag_folder()
-	#get_parent()
-	#find()
-	#move()
-	#add_object()
-	#add_folder()
-	#add_folder()
-	#delete_object()
-	#delete_folder()
-	#rename_folder()
-
-	def __init__(self, folder_name, parent_id=None):
-		self.folder_name = folder_name
-		self.parent_id = parent_id
+	def __init__(self, name=None):
+		self.name = name
 
 	def __repr__(self):
-		return '<Folder %r>' % self.folder_name
-
-class Tag(TimestampMixin, db.Model):
-
-	__tablename__ = 'tags'
-
-	tag_id = db.Column(db.Integer, primary_key=True)
-	tag_name = db.Column(db.String(120), nullable=False)
-
-	def __init__(self, tag_name):
-		self.tag_name = tag_name
-
-	def __repr__(self):
-		return '<Tag %r>' % self.tag_name
-	#add_tag()
-	#add_color_to_tag()
-	#edit_tag()
-	#delete_tag()
+		return '<Tag %r>' % self.name
