@@ -2,7 +2,7 @@ from faker import Faker
 from random import choice
 from passbook.features.orm import db
 from passbook.models.users import User
-from passbook.models.records import PasswordRecord, WalletRecord
+from passbook.models.records import PasswordRecord, WalletRecord, NoteRecord
 
 def make_fake_user():
 	faker = Faker()
@@ -12,6 +12,7 @@ def make_fake_user():
 	db.session.add(user)
 	try:
 		db.session.commit()
+		print("Fake user added")
 	except:
 		db.session.rollback()
 
@@ -23,6 +24,7 @@ def make_fake_password_records(user, count=25, faker=None):
 		db.session.add(record)
 	try:
 		db.session.commit()
+		print("Fake password record(s) added")
 	except Exception as e:
 		print(e)
 		db.session.rollback()
@@ -42,6 +44,24 @@ def make_fake_wallet_records(user, count=25, faker=None):
 		db.session.add(wallet)
 	try:
 		db.session.commit()
+		print("Fake credit card(s) added")
+	except Exception as e:
+		print(e)
+		db.session.rollback()
+
+def make_fake_notes(user, count=5, faker=None):
+	if not faker:
+		faker = Faker()
+	for i in range(count):
+		personal_note = NoteRecord(name=faker.name(), note_type="Personal Information")
+		identity_note = NoteRecord(name=faker.name(), note_type="Identification")
+		computer_note = NoteRecord(name=faker.name(), note_type="Computer")
+		db.session.add(personal_note)
+		db.session.add(identity_note)
+		db.session.add(computer_note)
+	try:
+		db.session.commit()
+		print("Fake note(s) added")
 	except Exception as e:
 		print(e)
 		db.session.rollback()
@@ -65,4 +85,5 @@ def make_fake_data(count=25):
 		db.session.rollback()
 	make_fake_password_records(user, count=count, faker=faker)
 	make_fake_wallet_records(user, count=count, faker=faker)
+	make_fake_notes(user, faker=faker)
 	print('Done making fake records!')

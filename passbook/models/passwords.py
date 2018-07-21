@@ -16,6 +16,9 @@ class PasswordItem(BaseTable):
 	flags = db.Column(ScalarListType())
 
 class Service(db.Model):
+
+	__tablename__ = 'services'
+
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	service_name = db.Column(db.String(32), unique=True, nullable=False)
 	domain_name = db.Column(db.String(32), unique=True, nullable=False)

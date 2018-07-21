@@ -1,5 +1,6 @@
 import os
 import enum
+import json
 
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -14,13 +15,15 @@ from sqlalchemy_utils import JSONType, ScalarListType
 
 from passbook.features.orm import db
 from passbook.util.security import encrypt_file, decrypt_file
+from passbook.models import NOTE_FIELDS
 from passbook.models.base import BaseTable
 
 Base = declarative_base()
 
 tag_table = db.Table('tags', Base.metadata, db.Column('password_record_id', db.Integer, db.ForeignKey('password_records.id')),
 	db.Column('wallet_record_id', db.Integer, db.ForeignKey('wallet_records.id')),
-		db.Column('file_record_id', db.Integer, db.ForeignKey('file_records.id'))
+		db.Column('file_record_id', db.Integer, db.ForeignKey('file_records.id')),
+		db.Column('note_record_id', db.Integer, db.ForeignKey('note_records.id'))
 		)
 
 class Record(BaseTable):
@@ -192,6 +195,28 @@ class FileRecord(Record):
 	def __repr__(self):
 		return '<FileRecord %r>' % self.encrypted_filename
 
+class NoteRecord(Record):
+
+	__tablename__ = 'note_records'
+
+	id = db.Column(db.Integer, db.ForeignKey('records.id'), primary_key=True)
+	note_type = db.Column(db.String(64))
+	fields = db.Column(JSONType)
+
+	__mapper_args__ = {'polymorphic_identity': 'note_records'}
+
+	def __init__(self, name, note_type="Personal Information"):
+		self.name = name
+		assert note_type in NOTE_FIELDS
+		self.note_type = note_type
+		try:
+			self.fields = json.loads(NOTE_FIELDS[note_type])
+		except Exception as e:
+			print(e)
+
+	def __repr__(self):
+		return '<NoteRecord %r>' % self.name
+
 class Tag(db.Model):
 
 	__tablename__ = 'tags'
@@ -201,6 +226,7 @@ class Tag(db.Model):
 	password_record_id = db.Column(db.Integer,db.ForeignKey('password_records.id'))
 	wallet_record_id = db.Column(db.Integer,db.ForeignKey('wallet_records.id'))
 	file_record_id = db.Column(db.Integer,db.ForeignKey('file_records.id'))
+	note_record_id = db.Column(db.Integer,db.ForeignKey('note_records.id'))
 
 	def __init__(self, name=None):
 		self.name = name

@@ -1,5 +1,6 @@
 from flask import current_app as app
 from passbook.models.records import WalletRecord
+from passbook.forms.records import NewWalletRecordForm
 
 @app.route('/list_wallet_records')
 def list_wallet_records():

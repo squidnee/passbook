@@ -19,10 +19,6 @@ from .base import BaseTable
 #basic_auth = HTTPBasicAuth()
 #token_auth = HTTPTokenAuth()
 
-class Permissions:
-	GENERAL = 0x01
-	ADMIN = 0xff
-
 class User(UserMixin, BaseTable):
 
 	__tablename__ = 'user'
@@ -97,12 +93,13 @@ class Device(BaseTable):
 	last_auth_ip = db.Column(IPAddressType)
 	#user_agent
 
-	def __init__(self, name=None, make=None, model=None, client_name=None, os_name=None):
+	def __init__(self, name=None, make=None, model=None, client_name=None, os_name=None, user_agent=None):
 		self.name = name
 		self.make = make
 		self.model = model
 		self.client_name = client_name
 		self.os_name = os_name
+		self.user_agent = user_agent
 
 	def __repr__(self):
 		return '<Device %r>' % (self.name)

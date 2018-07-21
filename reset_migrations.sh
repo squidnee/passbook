@@ -1,5 +1,4 @@
-find . -path "*/migrations/*.py" -not -name "__init__.py" -delete
-find . -path "*/migrations/*.pyc"  -delete
+rm -r migrations
 rm instance/passbook.db
 flask db init
 flask db migrate -m "new table"

@@ -67,12 +67,12 @@ Licensed under MIT
                         <li>
                             <a href="#passwords_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-lock"></i>
-                            Passwords</a>
+                            Starred</a>
                         </li>
                         <li>
-                            <a href="#">
-                            <i class="glyphicon glyphicon-paperclip"></i>
-                            Password Security</a>
+                            <a href="#passwords_tab" data-toggle="tab">
+                            <i class="glyphicon glyphicon-lock"></i>
+                            Passwords</a>
                         </li>
                         <li>
                             <a href="#notes_and_files_tab" data-toggle="tab">
@@ -82,11 +82,11 @@ Licensed under MIT
                         <li>
                             <a href="#">
                             <i class="glyphicon glyphicon-flag"></i>
-                            Flagged Records</a>
+                            Flagged</a>
                         </li>
                         <li class="nav-header">Wallet Manager</li>
                         <li>
-                            <a href="#">
+                            <a href="#credit_cards_tab">
                             <i class="glyphicon glyphicon-credit-card"></i>
                             Credit Cards</a>
                         </li>
@@ -113,17 +113,22 @@ Licensed under MIT
                         </li>
                         <li class="nav-header">Other</li>
                         <li>
-                            <a href="dashboard/about.html">
+                            <a href="app/tabs/settings/settings_basic.html">
+                            <i class="glyphicon glyphicon-question-sign"></i>
+                            Settings </a>
+                        </li>
+                        <li>
+                            <a href="app/tabs/about.html">
                             <i class="glyphicon glyphicon-question-sign"></i>
                             About </a>
                         </li>
                         <li>
-                            <a href="dashboard/help.html">
+                            <a href="app/tabs/help.html">
                             <i class="glyphicon glyphicon-question-sign"></i>
                             Help </a>
                         </li>
                         <li>
-                            <a href="dashboard/contact.html">
+                            <a href="app/tabs/contact.html">
                             <i class="glyphicon glyphicon-question-sign"></i>
                             Contact </a>
                         </li>
@@ -136,9 +141,9 @@ Licensed under MIT
         <div class="col-sm-9">
         <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade" id="passwords_tab">
-                    <h3>Passwords Tab</h3>
+                    <h3>Passwords</h3>
                     {% for record in site_records %}
-                    <div class="col-sm-4">
+                    <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
                         <div class="profile-content">
                             <b>{{ record.name }}</b>
                             <p>{{ record.username }}</p>
@@ -158,6 +163,16 @@ Licensed under MIT
                     <h3>Files</h3>
                     <p> Files will go here.</p>
         </div>
+        <div role="tabpanel" class="tab-pane fade" id="credit_cards_tab">
+                    <h3>Credit Cards</h3>
+                    {% for record in wallet_records %}
+                    <div class="col-sm-4">
+                        <div class="profile-content">
+                            <b>{{ record.name }}</b>
+                        </div>
+                    </div>
+                    {% endfor %}
+        </div>
         <div role="tabpanel" class="tab-pane fade" id="personal_info_tab">
                     <h3>Personal Information</h3>
                     <form class="form-horizontal">
@@ -168,7 +183,7 @@ Licensed under MIT
                     <input id="first_name" name="first_name" type="text" placeholder="First Name" class="form-control input-md" required="">
                     </div>
                     </div>
-                    
+
                     <div class="form-group">
                     <label class="col-md-4 control-label" for="last_name">Last Name:</label>  
                     <div class="col-md-4">

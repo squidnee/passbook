@@ -9,21 +9,25 @@
 - [ ] Ensure that settings/user prefs only works if logged in
 
 # Views
-- [ ] Get sidebar to show up on all pages
+- [x] Get sidebar to show up on all pages
 - [x] Set up basic dashboard at index page
-- [x] Add settings page (basic)
-- [x] Add settings page (advanced)
-- [x] Add user preferences page
-- [x] Add an about page to the navigation bar
-- [ ] Finish uploads view
-- [ ] Create a basic help page and add it to the navigation bar
-- [ ] Get the search form working
-- [x] Populate entries as a grid in the dashboard view
 - [ ] Implement fancy bootstrap password reset link
-- [ ] Get all links working on index page
-- [ ] Get a modal working for editing, sharing, etc.
-- [ ] Get bootstrapped credit card form
-- [ ] Make entries on index page clickable
+- [ ] Attach user preferences page to the user's name
+- [ ] Get all links working on index page such that they all switch between tabs
+- [x] Get a modal working
+- [x] Populate password entries as a grid in the dashboard view and make entries clickable w/ modal
+- [ ] Populate credit card entries as a grid in the dashboard view and make entries clickable w/ modal
+- [ ] Populate notes/files entries as a grid in the dashboard view and make entries clickable w/ modal
+- [ ] Get the trusted users view and table working
+- [ ] Finish editing the password item popup modal
+- [ ] Finish editing the credit card item popup modal (with bootstrapped credit card form)
+- [ ] Finish editing the notes and files item popup modal
+- [ ] Create and implement working file and note uploading modals
+- [ ] Get the search form working
+- [ ] Get a filterer / organizer button module working on each tab
+- [ ] Get the Starred view to filter out non-starred records
+- [ ] Get the Flagged view to filter out non-flagged records
+- [ ] Get the Identification view to filter out non-Identification-themed notes
 
 # Forms
 - [ ] Implement CSRF protection in all forms
@@ -32,40 +36,44 @@
 - [ ] Make login and register forms work with config's password limit size
 - [x] Make working registration form
 - [x] Make a form for adding records
-- [ ] Make a form for editing records
+- [x] Make a form for editing records
 - [x] Make a form for uploading files
 - [x] Make a search form
 - [ ] Set up custom validators with existing forms
+- [ ] Have the share-based forms actually send messages via email
 
 # Models
 - [x] Remove password from User model, replace with password hash
-- [ ] Update User database relationships
-- [ ] Add getters and setters to User model
 - [x] Add a model for user preferences
-- [ ] Add description and notes max length from config to Record model
+- [ ] Add description and notes max length from config to Record models
 - [x] Finish SiteRecord model
 - [x] Finish WalletRecord model
 - [ ] Finish Device model
-- [ ] Make a model for encrypted documents
+- [x] Make a model for encrypted documents
 - [ ] After making password generation utility, add it to user model
-- [ ] Finish the encrypted file model
-- [ ] Add notes model
-- [ ] Add ability to share records/notes
-- [ ] Add a Vault model
-- [x] Add a Folder model
+- [x] Finish the encrypted file model
+- [x] Determine all intended note types and their fields
+- [x] Finish NoteRecord model
+- [ ] Implement blank note
 - [x] Add a Tag model
+- [x] Add a Flag model
 - [x] Make Record mixin
+- [x] Finish TrustedUser model
+- [ ] Finish Service model for websites
+- [ ] Add a Vault model (only if its useful) and then implement a KeySet class for the vault
+- [ ] Create caches for each of these models
 
 # Managers
 - [x] Make a basic user manager template
 - [ ] Make a basic record manager template
+- [ ] Put in a tag manager somewhere (?)
 
 # Security
 - [ ] Implement Argon for salting
 - [ ] Set up SSL
-- [ ] Add middleware
+- [ ] Add middleware?
 - [ ] Add a password hint
-- [ ] Enable encryption and decryption of documents
+- [x] Enable encryption and decryption of documents
 - [ ] Add IP whitelisting?
 
 # Templates
@@ -77,18 +85,29 @@
 - [x] Fill out the form template
 - [x] Fill out the basic settings template
 - [ ] Fill out the advanced settings template
-- [ ] Fill out the user preferences template
+- [x] Fill out the user preferences template
 - [ ] Fill out the about page template
 - [ ] Fill out the help page template
+- [ ] Add tags to the dashboard
+- [ ] Fill out the search template in the macros folder and add it to index.html
+- [ ] Give base.html a facelift that is consistent with the app's layout
 
 # Static
-- [x] Fill out CSS
-- [ ] Change names of CSS tags to be more relevant
+- [x] Fill out index CSS
+- [x] Fill out tabs CSS
+- [ ] Fill out search CSS
+- [ ] Fill out modals CSS
+- [ ] Fill out auth/base CSS
+- [ ] Change names of CSS tags on index page to be more relevant
 
 # Utilities
 - [ ] Add template filters
 - [ ] Add password generation utility
+- [x] Add password strength indicator utility
 - [x] Add permissions
+- [ ] Add fake notes
+- [ ] Add fake files
+- [ ] Add fake tags to test the tagging functionality
 
 # Mail
 - [ ] Make throwaway email account to test email functionality
@@ -122,17 +141,22 @@
 - [x] Move extensions to a features folder
 - [x] Add logging functionality to a features folder
 - [ ] Figure out where to add exceptions (and add them)!
+- [ ] List out all the flags somewhere
+- [x] Put all modals into proper folder
+- [x] Put all tabs into proper subfolder in the app folder
+- [x] Reorganize templates folder s.t. app holds tabs/ and modals/ and add in index
+- [x] Put settings/ folder as a subfolder in app/tabs and implement in index
+- [x] Add add/ and view/ subfolders to app/modals folder, create appropriate modals, and add in index
 
 # Functionality
 - [ ] Add ability to star/favorite a record
 - [ ] Implement search functionality
 - [ ] Implement tagging
+- [ ] Add ability to share records/notes
 
 # Extensions
-- [ ] Consider using Flask-Uploads
 - [ ] Consider using Flask-User
 - [ ] Consider using Flask-Security
-- [ ] Implement Flask-Assets
 - [ ] Implement Flask-CORS
 
 # Testing / Logging
@@ -148,11 +172,10 @@
 - Tagging --> working on
 - Password generator --> working on
 - Filtering and sorting
-- Folders --> working on
-- Share passwords
+- Share passwords --> working on
 - Demand security question if not updated in a while
 - Multifactor authentication
-- Emergency access settings
+- Emergency access settings/trusted users --> working on
 - Functionality for detecting / removing expired credit cards
 - Pyperclip (for copying)
 - Equiv. domains for websites on entries
@@ -164,7 +187,7 @@
 - Encrypted documents --> working on
 - Autofill and autosave functionality
 - Custom fields
-- Support for multiple password managers
+- Support for importing from multiple password managers
 - Password alerts in settings
 - Clear clipboard after a certain time
 - Automatic vault locking after certain amount of time inactive

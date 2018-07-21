@@ -15,14 +15,14 @@ from passbook.config import BaseConfig as Config
 
 #BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
-def create_app(config=Config):
+def create_app(config=Config, build_fake_database=False):
 	app = Flask(__name__, instance_relative_config=True)
 	app.config.from_object(config)
 	app.config.from_pyfile('config.py')
 	print(app.config)
 	with app.app_context():
 		#CORS(app)
-		build_database(app, False)
+		build_database(app, build_fake_database)
 		build_bootstrap(app)
 		build_navigation_bar(app)
 		build_mail(app)
@@ -34,7 +34,7 @@ def create_app(config=Config):
 		register_permission_filters(app)
 	return app
 
-def build_database(app, fake_data=False):
+def build_database(app, build_fake_database=False):
 	from passbook.features.orm import db
 	db.init_app(app)
 
@@ -43,11 +43,11 @@ def build_database(app, fake_data=False):
 	#	logging.getLogger('sqlalchemy.engine').setLevel(logging.DEBUG)
 
 	migrate = Migrate(app, db)
-	from passbook.models.records import PasswordRecord
+	from passbook.models.records import PasswordRecord, NoteRecord
 	from passbook.models.users import User
 	db.create_all(app=app)
 
-	if fake_data:
+	if build_fake_database:
 		from passbook.util.fakes import make_fake_data
 		make_fake_data()
 
