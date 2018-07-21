@@ -12,7 +12,7 @@ from passbook.models.records import PasswordRecord, WalletRecord, FileRecord, No
 ## TODO: Make compatible with command line http://flask.pocoo.org/snippets/133/
 
 ## TODO: Implement Flask Security
-BUILD_FAKES = True
+BUILD_FAKES = False
 app = create_app(config=Config, build_fake_database=BUILD_FAKES)
 
 @app.shell_context_processor

@@ -84,7 +84,7 @@ def register_post_extensions(app):
 	pass
 
 def register_endpoints(app):
-	from passbook.views import errors, login, navigation, password_records, wallet_records, file_records, note_records, settings
+	from passbook.views import errors, login, navigation, manager, wallet, contact, settings
 
 def create_celery_app(app):
 	from passbook.features.tasks import celery

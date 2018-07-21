@@ -205,10 +205,14 @@ class NoteRecord(Record):
 
 	__mapper_args__ = {'polymorphic_identity': 'note_records'}
 
-	def __init__(self, name, note_type="Personal Information"):
+	def __init__(self, name, note_type=None):
 		self.name = name
-		assert note_type in NOTE_FIELDS
-		self.note_type = note_type
+		if not note_type:
+			self.note_type = "Blank"
+			self.fields = {}
+		else:
+			assert note_type in NOTE_FIELDS
+			self.note_type = note_type
 		try:
 			self.fields = json.loads(NOTE_FIELDS[note_type])
 		except Exception as e:

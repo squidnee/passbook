@@ -7,13 +7,12 @@ from passbook.views import errors
 from passbook.views import navigation
 from passbook.views import login
 from passbook.views import settings
-from passbook.views import password_records
-from passbook.views import wallet_records
-from passbook.views import file_records
-from passbook.views import note_records
+from passbook.views import manager
+from passbook.views import wallet
+from passbook.views import contact
 
 from passbook.models.users import User
-from passbook.models.records import PasswordRecord
+from passbook.models.records import PasswordRecord, WalletRecord, NoteRecord
 from passbook.forms.mail import ContactForm
 from passbook.features.mail import send_email
 
@@ -28,16 +27,18 @@ login_manager.login_view = 'login'
 @app.route('/index')
 #@login_required
 def index():
-	site_records = PasswordRecord.query.all()
-	return render_template('index.html', site_records=site_records)
+	password_records = PasswordRecord.query.all()
+	wallet_records = WalletRecord.query.all()
+	note_records = NoteRecord.query.all()
+	return render_template('index.html', password_records=password_records, wallet_records=wallet_records, note_records=note_records)
 
 @app.route('/about')
 def about():
-	return render_template('dashboard/about.html')
+	return render_template('app/tabs/other/about.html')
 
 @app.route('/help')
 def help():
-	return render_template('dashboard/help.html')
+	return render_template('app/tabs/other/help.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -45,7 +46,7 @@ def contact():
 	if request.method == 'POST':
 		if form.validate() == False:
 			flash('All fields are required.')
-			return render_template('dashboard/contact.html', form=form)
+			return render_template('app/tabs/other/contact.html', form=form)
 		else:
 			subject = form.subject.data
 			msg = form.message.data
@@ -53,7 +54,7 @@ def contact():
 			sender_name = form.name.data
 			# TODO: Actually send message
 			flash('Successfully sent message.')
-			return render_template('dasboard/contact.html', success=True)
+			return render_template('app/tabs/other/contact.html', success=True)
 
 	elif request.method == 'GET':
-		return render_template('dashboard/contact.html', form=form)
+		return render_template('app/tabs/other/contact.html', form=form)

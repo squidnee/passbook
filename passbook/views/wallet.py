@@ -4,7 +4,8 @@ from passbook.forms.records import NewWalletRecordForm
 
 @app.route('/list_wallet_records')
 def list_wallet_records():
-	pass
+	site_records = WalletRecord.query.all()
+	return render_template('index.html', site_records=site_records)
 
 @app.route('/add_wallet_record')
 def add_wallet_record():

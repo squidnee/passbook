@@ -13,16 +13,15 @@
 - [x] Set up basic dashboard at index page
 - [ ] Implement fancy bootstrap password reset link
 - [ ] Attach user preferences page to the user's name
-- [ ] Get all links working on index page such that they all switch between tabs
+- [x] Get all links working on index page such that they all switch between tabs
 - [x] Get a modal working
 - [x] Populate password entries as a grid in the dashboard view and make entries clickable w/ modal
-- [ ] Populate credit card entries as a grid in the dashboard view and make entries clickable w/ modal
-- [ ] Populate notes/files entries as a grid in the dashboard view and make entries clickable w/ modal
-- [ ] Get the trusted users view and table working
-- [ ] Finish editing the password item popup modal
-- [ ] Finish editing the credit card item popup modal (with bootstrapped credit card form)
-- [ ] Finish editing the notes and files item popup modal
+- [x] Populate credit card entries as a grid in the dashboard view and make entries clickable w/ modal
+- [x] Populate notes/files entries as a grid in the dashboard view and make entries clickable w/ modal
+- [ ] Create and implement working password item popup modal
+- [ ] Create and implement working credit card item popup modal (with bootstrapped credit card form)
 - [ ] Create and implement working file and note uploading modals
+- [ ] Get the trusted users view and table working
 - [ ] Get the search form working
 - [ ] Get a filterer / organizer button module working on each tab
 - [ ] Get the Starred view to filter out non-starred records
@@ -105,7 +104,7 @@
 - [ ] Add password generation utility
 - [x] Add password strength indicator utility
 - [x] Add permissions
-- [ ] Add fake notes
+- [x] Add fake notes
 - [ ] Add fake files
 - [ ] Add fake tags to test the tagging functionality
 

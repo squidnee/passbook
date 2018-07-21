@@ -59,13 +59,13 @@ Licensed under MIT
                     <ul class="nav">
                         <li class="nav-header">Password Manager</li>
                         <li class="active">
-                            <a href="#">
+                            <a href="#all_records_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-list"></i>
-                            All Items </a>
+                            All Records </a>
                         </li>
                         <li>
                         <li>
-                            <a href="#passwords_tab" data-toggle="tab">
+                            <a href="#starred_records_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-lock"></i>
                             Starred</a>
                         </li>
@@ -80,13 +80,13 @@ Licensed under MIT
                             Notes and Files</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#flagged_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-flag"></i>
                             Flagged</a>
                         </li>
                         <li class="nav-header">Wallet Manager</li>
                         <li>
-                            <a href="#credit_cards_tab">
+                            <a href="#credit_cards_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-credit-card"></i>
                             Credit Cards</a>
                         </li>
@@ -96,20 +96,20 @@ Licensed under MIT
                             Personal Information</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#identification_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-eye-open"></i>
                             Identification</a>
                         </li>
                         <li class="nav-header">Contact Manager</li>
                         <li>
-                            <a href="#">
+                            <a href="#trusted_users_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-exclamation-sign"></i>
                             Trusted Users</a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="#share_tab" data-toggle="tab">
                             <i class="glyphicon glyphicon-send"></i>
-                            Share Credentials</a>
+                            Share Records</a>
                         </li>
                         <li class="nav-header">Other</li>
                         <li>
@@ -118,17 +118,17 @@ Licensed under MIT
                             Settings </a>
                         </li>
                         <li>
-                            <a href="app/tabs/about.html">
+                            <a href="{{ url_for('about') }}">
                             <i class="glyphicon glyphicon-question-sign"></i>
                             About </a>
                         </li>
                         <li>
-                            <a href="app/tabs/help.html">
+                            <a href="{{ url_for('help') }}">
                             <i class="glyphicon glyphicon-question-sign"></i>
                             Help </a>
                         </li>
                         <li>
-                            <a href="app/tabs/contact.html">
+                            <a href="{{ url_for('contact') }}">
                             <i class="glyphicon glyphicon-question-sign"></i>
                             Contact </a>
                         </li>
@@ -140,9 +140,50 @@ Licensed under MIT
         
         <div class="col-sm-9">
         <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade" id="all_records_tab">
+                    <h3>Passwords</h3>
+                    {% for record in password_records %}
+                    <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
+                        <div class="profile-content">
+                            <b>{{ record.name }}</b>
+                            <p>{{ record.username }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <h3>Wallet</h3>
+                    {% for w_record in wallet_records %}
+                    <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
+                        <div class="profile-content">
+                            <b>{{ w_record.name }}</b>
+                        </div>
+                    </div>
+                    {% endfor %}
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="starred_records_tab">
+                    <h3>Starred</h3>
+                    {% for record in password_records %}
+                    <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
+                        <div class="profile-content">
+                            <b>{{ record.name }}</b>
+                            <p>{{ record.username }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+        </div>
         <div role="tabpanel" class="tab-pane fade" id="passwords_tab">
                     <h3>Passwords</h3>
-                    {% for record in site_records %}
+                    {% for record in password_records %}
+                    <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
+                        <div class="profile-content">
+                            <b>{{ record.name }}</b>
+                            <p>{{ record.username }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="flagged_tab">
+                    <h3>Flagged Records</h3>
+                    {% for record in password_records %}
                     <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
                         <div class="profile-content">
                             <b>{{ record.name }}</b>
@@ -159,7 +200,14 @@ Licensed under MIT
         <button type="button" class="btn btn-labeled btn-primary">
                 <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Share</button>
                     <h3>Notes</h3>
-                    <p> Notes will go here.</p>
+                    {% for record in note_records %}
+                     <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
+                        <div class="profile-content">
+                            <b>{{ record.name }}</b>
+                            <p>{{ record.note_type }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
                     <h3>Files</h3>
                     <p> Files will go here.</p>
         </div>
@@ -171,6 +219,24 @@ Licensed under MIT
                             <b>{{ record.name }}</b>
                         </div>
                     </div>
+                    {% endfor %}
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="trusted_users_tab">
+                    {% include 'app/tabs/contact/trusted_users.html' %}
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="share_tab">
+                    <h3>Share</h3>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="identification_tab">
+                    <h3>Identification</h3>
+                    {% for record in note_records %}
+                        {% if record.type == "Identification" %}
+                            <div class="col-sm-4">
+                                <div class="profile-content">
+                                    <b>{{ record.name }}</b>
+                                </div>
+                            </div>
+                        {% endif %}
                     {% endfor %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="personal_info_tab">
