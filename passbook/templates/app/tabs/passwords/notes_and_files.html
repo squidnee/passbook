@@ -1,0 +1,17 @@
+<button type="button" class="btn btn-labeled btn-default">
+                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Add Note</button>
+        <button type="button" class="btn btn-labeled btn-default">
+                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Add File</button>
+        <button type="button" class="btn btn-labeled btn-primary">
+                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Share</button>
+                    <h3>Notes</h3>
+                    {% for record in note_records %}
+                     <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
+                        <div class="profile-content">
+                            <b>{{ record.name }}</b>
+                            <p>{{ record.note_type }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <h3>Files</h3>
+                    <p> Files will go here.</p>

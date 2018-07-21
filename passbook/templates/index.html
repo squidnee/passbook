@@ -141,23 +141,7 @@ Licensed under MIT
         <div class="col-sm-9">
         <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade" id="all_records_tab">
-                    <h3>Passwords</h3>
-                    {% for record in password_records %}
-                    <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
-                        <div class="profile-content">
-                            <b>{{ record.name }}</b>
-                            <p>{{ record.username }}</p>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    <h3>Wallet</h3>
-                    {% for w_record in wallet_records %}
-                    <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
-                        <div class="profile-content">
-                            <b>{{ w_record.name }}</b>
-                        </div>
-                    </div>
-                    {% endfor %}
+            {% include 'app/tabs/passwords/all_records.html' %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="starred_records_tab">
                     <h3>Starred</h3>
@@ -171,15 +155,7 @@ Licensed under MIT
                     {% endfor %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="passwords_tab">
-                    <h3>Passwords</h3>
-                    {% for record in password_records %}
-                    <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
-                        <div class="profile-content">
-                            <b>{{ record.name }}</b>
-                            <p>{{ record.username }}</p>
-                        </div>
-                    </div>
-                    {% endfor %}
+            {% include 'app/tabs/passwords/passwords.html' %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="flagged_tab">
                     <h3>Flagged Records</h3>
@@ -193,71 +169,22 @@ Licensed under MIT
                     {% endfor %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="notes_and_files_tab">
-        <button type="button" class="btn btn-labeled btn-default">
-                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Add Note</button>
-        <button type="button" class="btn btn-labeled btn-default">
-                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Add File</button>
-        <button type="button" class="btn btn-labeled btn-primary">
-                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Share</button>
-                    <h3>Notes</h3>
-                    {% for record in note_records %}
-                     <div class="col-sm-4" data-toggle="modal" data-target="#myModal">
-                        <div class="profile-content">
-                            <b>{{ record.name }}</b>
-                            <p>{{ record.note_type }}</p>
-                        </div>
-                    </div>
-                    {% endfor %}
-                    <h3>Files</h3>
-                    <p> Files will go here.</p>
+            {% include 'app/tabs/passwords/notes_and_files.html' %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="credit_cards_tab">
-                    <h3>Credit Cards</h3>
-                    {% for record in wallet_records %}
-                    <div class="col-sm-4">
-                        <div class="profile-content">
-                            <b>{{ record.name }}</b>
-                        </div>
-                    </div>
-                    {% endfor %}
+            {% include 'app/tabs/wallet/credit_cards.html' %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="trusted_users_tab">
-                    {% include 'app/tabs/contact/trusted_users.html' %}
+            {% include 'app/tabs/contact/trusted_users.html' %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="share_tab">
                     <h3>Share</h3>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="identification_tab">
-                    <h3>Identification</h3>
-                    {% for record in note_records %}
-                        {% if record.type == "Identification" %}
-                            <div class="col-sm-4">
-                                <div class="profile-content">
-                                    <b>{{ record.name }}</b>
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
+            {% include 'app/tabs/wallet/identification.html' %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="personal_info_tab">
-                    <h3>Personal Information</h3>
-                    <form class="form-horizontal">
-                    <fieldset>
-                    <div class="form-group">
-                    <label class="col-md-4 control-label" for="first_name">First Name:</label>  
-                    <div class="col-md-4">
-                    <input id="first_name" name="first_name" type="text" placeholder="First Name" class="form-control input-md" required="">
-                    </div>
-                    </div>
-
-                    <div class="form-group">
-                    <label class="col-md-4 control-label" for="last_name">Last Name:</label>  
-                    <div class="col-md-4">
-                    <input id="last_name" name="last_name" type="text" placeholder="Last Name" class="form-control input-md" required="">
-                    </div>
-                    </div>
-                    </fieldset>
-                    </form>
+            {% include 'app/tabs/wallet/personal_info.html' %}
         </div>
         
         </div>

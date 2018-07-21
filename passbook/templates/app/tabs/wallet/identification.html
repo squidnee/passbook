@@ -1,0 +1,10 @@
+<h3>Identification</h3>
+                    {% for record in note_records %}
+                        {% if record.type == "Identification" %}
+                            <div class="col-sm-4">
+                                <div class="profile-content">
+                                    <b>{{ record.name }}</b>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
